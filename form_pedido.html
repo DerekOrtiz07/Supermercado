@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Pedido - EcoComida</title>
+</head>
+<body>
+
+    <header>
+        <h1>EcoComida: Rescate de Alimentos</h1>
+        <nav>
+            <a href="index.html">Inicio</a> | 
+            <a href="menu.html">Regresar al Menú</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Realizar Pedido</h2>
+        <p>Completa tus datos para reservar tus alimentos y evitar el desperdicio.</p>
+
+        <form action="pedidos.html" method="get">
+            <fieldset>
+                <legend>Información del Cliente</legend>
+                <p>
+                    <label for="nombre">Nombre Completo:</label><br>
+                    <input type="text" id="nombre" name="nombre" required>
+                </p>
+                <p>
+                    <label for="direccion">Dirección de Entrega:</label><br>
+                    <input type="text" id="direccion" name="direccion" required>
+                </p>
+                <p>
+                    <label for="telefono">Teléfono de contacto:</label><br>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </p>
+            </fieldset>
+
+            <br>
+
+            <fieldset>
+                <legend>Selección de Platos</legend>
+                <p>Selecciona los productos que deseas rescatar:</p>
+                
+                <input type="checkbox" id="plato1" name="platos" value="empanadas">
+                <label for="plato1">Leche gloria 1L (S/ 5.00)</label><br>
+                
+                <input type="checkbox" id="plato2" name="platos" value="menu">
+                <label for="plato2">Pan molde (S/ 1.80)</label><br>
+                
+                <input type="checkbox" id="plato3" name="platos" value="torta">
+                <label for="plato3">Yogurt de fresa (S/ 3.60)</label><br>
+
+                <input type="checkbox" id="plato3" name="platos" value="torta">
+                <label for="plato3">Queso fresco (S/ 3.50)</label><br>
+                
+                <input type="checkbox" id="plato3" name="platos" value="torta">
+                <label for="plato3">Atún Florida (S/ 6.40)</label><br>
+
+                <input type="checkbox" id="plato3" name="platos" value="torta">
+                <label for="plato3">Aceite Primor (S/ 6.80)</label><br>
+                <p>
+                    <label for="cantidad">Cantidad total de productos:</label><br>
+                    <input type="number" id="cantidad" name="cantidad" min="1" max="10" value="1">
+                </p>
+            </fieldset>
+
+            <p>
+                <button type="submit">Enviar Pedido</button>
+            </p>
+        </form>
+
+        <p><a href="index.html">Volver al Inicio</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Avance de Proyecto Final 1</p>
+    </footer>
+
+</body>
+</html>
