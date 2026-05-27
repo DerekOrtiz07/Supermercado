@@ -1,80 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulario de Pedido - EcoComida</title>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
 
+      body {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+          url("bodyyy.jpg");
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f7f2;
+        color: #333;
+        line-height: 1.6;
+        background-size: cover;
+      }
+      header {
+        background-color: #04522b;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      /* NAVBAR */
+      nav {
+        margin-top: 15px;
+        background: linear-gradient(90deg, #1b5e20, #2e7d32);
+        padding: 15px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      nav a {
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 17px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      /* EFECTO HOVER */
+      nav a:hover {
+        background-color: white;
+        color: #208d27;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      main {
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+        /* ANIMACION */
+        animation: aparecer 2s ease;
+      }
+
+      
+      form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      fieldset {
+        border: 2px solid #81c784;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      legend {
+        font-weight: bold;
+        color: #2e7d32;
+        padding: 0 10px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      input:focus {
+        border-color: #2e7d32;
+        outline: none;
+      }
+
+      /* FLEXBOX PARA CHECKBOX */
+      .productos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .producto-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .producto-item label {
+        flex: 1;
+      }
+
+      .producto-item input[type="checkbox"] {
+        width: auto;
+      }
+
+      .producto-item input[type="number"] {
+        width: 70px;
+      }
+
+      /* BOTON */
+      button {
+        background-color: #2e7d32;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background-color: #1b5e20;
+        transform: scale(1.05);
+      }
+
+      /* FOOTER */
+      footer {
+        background-color: #0f3111;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin-top: 30px;
+      }
+
+      .redes {
+        margin-bottom: 10px;
+      }
+
+      .redes a {
+        color: white;
+        font-size: 24px;
+        margin: 0 10px;
+        transition: 0.3s;
+      }
+
+      .redes a:hover {
+        color: #c8f7c5;
+        transform: scale(1.2);
+      }
+
+      /* ANIMACION */
+      @keyframes aparecer {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        form {
+          grid-template-columns: 1fr;
+        }
+
+        nav a {
+          display: block;
+          margin: 10px 0;
+        }
+
+        main {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
     <header>
-        <h1>EcoComida: Rescate de Alimentos</h1>
-        <nav>
-            <a href="index.html">Inicio</a> | 
-            <a href="menu.html">Regresar al Menú</a>
-        </nav>
+      <h1>EcoComida: Rescate de Alimentos</h1>
+
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Regresar al Menú</a>
+      </nav>
     </header>
-
     <main>
-        <h2>Realizar Pedido</h2>
-        <p>Completa tus datos para reservar tus alimentos y evitar el desperdicio.</p>
+      <h2>Realizar Pedido</h2>
 
-        <form action="pedidos.html" method="get">
-            <fieldset>
-                <legend>Información del Cliente</legend>
-                <p>
-                    <label for="nombre">Nombre Completo:</label><br>
-                    <input type="text" id="nombre" name="nombre" required>
-                </p>
-                <p>
-                    <label for="direccion">Dirección de Entrega:</label><br>
-                    <input type="text" id="direccion" name="direccion" required>
-                </p>
-                <p>
-                    <label for="telefono">Teléfono de contacto:</label><br>
-                    <input type="tel" id="telefono" name="telefono" required>
-                </p>
-            </fieldset>
+      <p>
+        Completa tus datos para reservar tus alimentos y evitar el desperdicio.
+      </p>
 
-            <br>
+      <br />
 
-            <fieldset>
-                <legend>Selección de Platos</legend>
-                <p>Selecciona los productos que deseas rescatar:</p>
-                
-                <input type="checkbox" id="plato1" name="platos" value="empanadas">
-                <label for="plato1">Leche gloria 1L (S/ 5.00)</label><br>
-                
-                <input type="checkbox" id="plato2" name="platos" value="menu">
-                <label for="plato2">Pan molde (S/ 1.80)</label><br>
-                
-                <input type="checkbox" id="plato3" name="platos" value="torta">
-                <label for="plato3">Yogurt de fresa (S/ 3.60)</label><br>
+      <form action="pedidos.html" method="get">
+        <fieldset>
+          <legend>Información del Cliente</legend>
+          <p>
+            <label for="nombre">Nombre Completo:</label><br />
+            <input type="text" id="nombre" name="nombre" required />
+          </p>
+          <br />
+          <p>
+            <label for="direccion">Dirección de Entrega:</label><br />
+            <input type="text" id="direccion" name="direccion" required />
+          </p>
+          <br />
+          <p>
+            <label for="telefono">Teléfono de contacto:</label><br />
+            <input type="tel" id="telefono" name="telefono" required />
+          </p>
+        </fieldset>
 
-                <input type="checkbox" id="plato3" name="platos" value="torta">
-                <label for="plato3">Queso fresco (S/ 3.50)</label><br>
-                
-                <input type="checkbox" id="plato3" name="platos" value="torta">
-                <label for="plato3">Atún Florida (S/ 6.40)</label><br>
+        <fieldset>
+          <legend>Selección de Productos</legend>
 
-                <input type="checkbox" id="plato3" name="platos" value="torta">
-                <label for="plato3">Aceite Primor (S/ 6.80)</label><br>
-                <p>
-                    <label for="cantidad">Cantidad total de productos:</label><br>
-                    <input type="number" id="cantidad" name="cantidad" min="1" max="10" value="1">
-                </p>
-            </fieldset>
+          <p>Selecciona los productos que deseas rescatar:</p>
 
-            <p>
-                <button type="submit">Enviar Pedido</button>
-            </p>
-        </form>
+          <div class="productos">
+            <div class="producto-item">
+              <input type="checkbox" id="plato1" name="platos" value="leche" />
+              <label for="plato1">Leche Gloria 1L (S/ 5.00)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
 
-        <p><a href="index.html">Volver al Inicio</a></p>
+            <div class="producto-item">
+              <input type="checkbox" id="plato2" name="platos" value="pan" />
+              <label for="plato2">Pan molde (S/ 1.80)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
+
+            <div class="producto-item">
+              <input type="checkbox" id="plato3" name="platos" value="yogurt" />
+              <label for="plato3">Yogurt de fresa (S/ 3.60)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
+
+            <div class="producto-item">
+              <input type="checkbox" id="plato4" name="platos" value="queso" />
+              <label for="plato4">Queso fresco (S/ 3.50)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
+
+            <div class="producto-item">
+              <input type="checkbox" id="plato5" name="platos" value="atun" />
+              <label for="plato5">Atún Florida (S/ 6.40)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
+
+            <div class="producto-item">
+              <input type="checkbox" id="plato6" name="platos" value="aceite" />
+              <label for="plato6">Aceite Primor (S/ 6.80)</label>
+              <input type="number" min="0" max="10" value="0" />
+            </div>
+          </div>
+
+          <br />
+
+          <p>
+            <label for="cantidad">Cantidad total de productos:</label><br />
+            <input type="number"id="cantidad"name="cantidad"
+              min="1"
+              max="50"
+              value="1"
+            />
+          </p>
+        </fieldset>
+
+        <div>
+          <button type="submit">Enviar Pedido</button>
+        </div>
+      </form>
+      <br />
+      <p>
+        <a href="index.html">Volver al Inicio</a>
+      </p>
     </main>
-
     <footer>
-        <p>&copy; 2026 - Avance de Proyecto Final 1</p>
+      <div class="redes">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2026 - Avance de Proyecto Final </p>
     </footer>
-
-</body>
+  </body>
 </html>
