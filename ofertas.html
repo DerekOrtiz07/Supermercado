@@ -1,91 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ofertas de Abarrotes - Supermercado Ica</title>
-</head>
-<body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas de Abarrotes - Eco comida Ica</title>
+  <style>
+        /* ==========================================================================
+           1. VARIABLES DE DISEÑO (Colores institucionales de Supermercado/Alimentos)
+           ========================================================================== */
+        :root {
+            --color-principal: #2a9d8f;  /* Verde Ecológico (Reducción de residuos) */
+            --color-secundario: #f4a261; /* Naranja Suave (Comida / Ofertas) */
+            --color-alerta: #e76f51;     /* Rojo Coral para alertas urgentes */
+            --color-oscuro: #264653;     /* Azul muy oscuro para textos y headers */
+            --color-claro: #f8f9fa;      /* Gris claro para el fondo */
+            --blanco: #ffffff;
+            --transicion: all 0.3s ease;
+        }
 
-    <header>
-        <h1>EcoComida:Rescate de Alimentos</h1>
-        <p><i>Venta de abarrotes de primera necesidad para reducir el desperdicio.</i></p>
-    </header>
+        /* RESET GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
 
-    <hr>
+        body {
+            background-color: var(--color-claro);
+            color: var(--color-oscuro);
+        }
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="menu.html">Catálogo de Productos</a></li>
-            <li><a href="form_pedido.html">Realizar Pedido</a></li>
-            <li><a href="pedidos.html">Mis Pedidos</a></li>
-            <li><a href="ofertas.html"><b>Ofertas Especiales</b></a></li>
-        </ul>
-    </nav>
+        /* ==========================================================================
+           2. REQUISITO 1: GRID LAYOUT (Estructura general de la Página)
+           ========================================================================== */
+        .grid-container {
+            display: grid;
+            grid-template-rows: auto auto 1fr auto; /* Header, Nav, Main, Footer */
+            grid-template-areas: 
+                "header"
+                "navbar"
+                "main"
+                "footer";
+            min-height: 100vh;
+        }
 
-    <hr>
+        .main-header { grid-area: header; }
+        .navbar { grid-area: navbar; }
+        .main-content { grid-area: main; padding: 30px 5%; }
+        .main-footer { grid-area: footer; }
 
-    <main>
-        <section>
-            <h2>📢 Ofertas en Abarrotes</h2>
-            <p>Aprovecha los precios de liquidación en productos de despensa con fecha de vencimiento próxima.</p>
+        /* Header Estilos */
+        .main-header {
+            background-color: var(--color-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 25px 15px;
+        }
+        .main-header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+        .main-header p { font-weight: 300; opacity: 0.9; }
 
-            <table border="1" cellpadding="10">
-                <thead>
-                    <tr>
-                        <th>Producto de Despensa</th>
-                        <th>Detalles del Producto</th>
-                        <th>Precio Regular</th>
-                        <th>Precio Rebajado</th>
-                        <th>Disponibilidad</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Arroz Extra (5kg)</td>
-                        <td>Bolsa sellada. Fecha de vencimiento: 25 de abril.</td>
-                        <td>S/ 22.50</td>
-                        <td><b>S/ 12.00</b></td>
-                        <td><strong>⚠️ ¡ÚLTIMOS 3 SACOS!</strong></td>
-                        <td><a href="form_pedido.html">Añadir al Pedido</a></td>
-                    </tr>
-                    <tr>
-                        <td>Aceite Vegetal (1L)</td>
-                        <td>Marca Premium. Fecha de vencimiento: 22 de abril.</td>
-                        <td>S/ 11.00</td>
-                        <td><b>S/ 6.50</b></td>
-                        <td><strong>⚠️ ¡SOLO QUEDAN 5!</strong></td>
-                        <td><a href="form_pedido.html">Añadir al Pedido</a></td>
-                    </tr>
-                    <tr>
-                        <td>Leche Evaporada (Six-pack)</td>
-                        <td>Pack de 6 latas. Fecha de vencimiento: 30 de abril.</td>
-                        <td>S/ 25.00</td>
-                        <td><b>S/ 16.00</b></td>
-                        <td><strong>⚠️ ¡OFERTA LIMITADA!</strong></td>
-                        <td><a href="form_pedido.html">Añadir al Pedido</a></td>
-                    </tr>
-                    <tr>
-                        <td>Fideos Spaghetti (1kg)</td>
-                        <td>Paquete familiar. Fecha de vencimiento: 28 de abril.</td>
-                        <td>S/ 5.50</td>
-                        <td><b>S/ 2.50</b></td>
-                        <td><strong>⚠️ ¡SE ACABA PRONTO!</strong></td>
-                        <td><a href="form_pedido.html">Añadir al Pedido</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+        /* ==========================================================================
+           3. REQUISITO 2: FLEXBOX (Barra de Navegación y Elementos Internos)
+           ========================================================================== */
+        .navbar {
+            background-color: var(--color-principal);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-    <hr>
+        .nav-links {
+            display: flex;             /* FLEXBOX IMPLEMENTADO */
+            justify-content: center;   /* Centra los enlaces horizontalmente */
+            align-items: center;
+            list-style: none;
+            flex-wrap: wrap;           /* Permite saltos de línea en pantallas medianas */
+        }
 
-    <footer>
-        <p><b>Supermercado Ica</b> | Ubicación: Av. Municipalidad, Ica</p>
-        <p>Atención al cliente: 056-123456</p>
-        <p>&copy; 2026 Taller de Programación Web - UTP</p>
-    </footer>
+        .nav-links a {
+            display: block;
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 600;
+            transition: var(--transicion); /* Transición CSS */
+        }
 
-</body>
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--color-oscuro);
+            color: var(--color-secundario);
+        }
+
+        /* ==========================================================================
+           4. REQUISITO 3: GRID LAYOUT APLICADO A CONTENIDO (Tarjetas de Ofertas)
+           ========================================================================== */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .intro-section h2 { font-size: 2rem; color: var(--color-oscuro); margin-bottom: 10px; }
+
+        .offers-grid {
+            display: grid;             /* GRID LAYOUT IMPLEMENTADO */
+            grid-template-columns: repeat(4, 1fr); /* 4 Columnas iguales en PC */
+            gap: 25px;
+            margin-bottom: 5px;
+        }
+
+        /* Tarjetas Individuales */
+        .offer-card {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;    /* Flexbox interno para ordenar componentes */
+            justify-content: space-between;
+            transition: var(--transicion); /* Transición base */
+        }
+
+        /* REQUISITO 4: TRANSICIONES AL PASAR EL CURSOR (HOVER EFFECT) */
+        .offer-card:hover {
+            transform: translateY(-8px); /* Levanta la tarjeta de forma fluida */
+            box-shadow: 0 12px 20px rgba(38, 70, 83, 0.15);
+            border-color: var(--color-principal);
+        }
+
+        /* Elementos internos de las Tarjetas */
+        .badge-discount {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--color-alerta);
+            color: var(--blanco);
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .offer-card h3 { margin-top: 15px; margin-bottom: 10px; font-size: 1.3rem; }
+        .details { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
+
+        .price-container {
+            margin-bottom: 15px;
+        }
+        .old-price { text-decoration: line-through; color: #999; margin-right: 10px; font-size: 0.95rem; }
+        .new-price { font-size: 1.4rem; font-weight: bold; color: var(--color-oscuro); }
+
+        .stock-warning {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--color-alerta);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Botones con Transiciones */
+        .btn-order {
+            display: block;
+            text-align: center;
+            background-color: var(--color-secundario);
+            color: var(--color-oscuro);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            transition: var(--transicion);
+        }
+        .btn-order:hover {
+            background-color: var(--color-oscuro);
+            color: var(--blanco);
+        }
+
+        /* ==========================================================================
+           5. REQUISITO 5: ANIMACIONES CSS (@keyframes)
+           ========================================================================== */
+        /* Animación 1: Alerta parpadeante suave para stock crítico */
+        @keyframes alertPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        .animate-alert {
+            animation: alertPulse 1.5s infinite ease-in-out;
+        }
+
+        /* Animación 2: Entrada elegante de la primera tarjeta al cargar la página */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-pulse-card {
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        /* ==========================================================================
+           6. SECCIÓN TABLA ESTILIZADA
+           ========================================================================== */
+        .table-container {
+            margin-top: 40px;
+            background: var(--blanco);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .table-container h3 { margin-bottom: 15px; }
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .styled-table th { background-color: var(--color-oscuro); color: var(--blanco); padding: 12px; text-align: left; }
+        .styled-table td { padding: 12px; border-bottom: 1px solid #ddd; }
+        .td-old { text-decoration: line-through; color: #aaa; }
+        .td-new { font-weight: bold; color: var(--color-principal); }
+        .table-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .text-red { background-color: #fceade; color: var(--color-alerta); }
+        .text-orange { background-color: #fef1e2; color: var(--color-secundario); }
+
+        /* Footer Estilos usando Flexbox */
+        .main-footer {
+            background-color: var(--color-oscuro);
+            color: var(--blanco);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-secundario);
+        }
+
+        /* ==========================================================================
+           7. REQUISITO 6: DISEÑO RESPONSIVE (Media Queries)
+           ========================================================================== */
+
+        /* Pantallas Medianas (Tablets - Laptops Pequeñas) */
+        @media (max-width: 1024px) {
+            .offers-grid {
+                grid-template-columns: repeat(2, 1fr); /* Pasa de 4 a 2 columnas */
+                gap: 20px;
+            }
+        }
+
+        /* Pantallas Pequeñas (Celulares modernos) */
+        @media (max-width: 600px) {
+            .main-content { padding: 20px 15px; }
+            
+            .nav-links {
+                flex-direction: column; /* Menú en formato de lista vertical */
+            }
+            .nav-links a { width: 100%; text-align: center; padding: 12px; }
+
+            .offers-grid {
+                grid-template-columns: 1fr; /* 1 Sola tarjeta por fila ocupando todo el ancho */
+            }
+
+            .main-footer {
+                flex-direction: column; /* Footer apilado verticalmente */
+                text-align: center;
+                gap: 10px;
+            }
+            
+            /* Hace que la tabla tenga scroll horizontal para no romper la pantalla */
+            .table-container { overflow-x: auto; }
+        }
+    </style>
+ </head>
+ <body>
+  <div class="grid-container">
+   <header class="main-header">
+    <div class="header-content">
+     <h1>🛒 Eco comida Ica</h1>
+     <p>Venta de abarrotes de primera necesidad para reducir el desperdicio.</p>
+    </div>
+   </header>
+   <nav class="navbar">
+    <ul class="nav-links">
+     <li><a href="index.html">Inicio</a></li>
+     <li><a href="login.html">Iniciar Sesión</a></li>
+     <li><a href="registrar.html">Registrarse</a></li>
+     <li><a href="menu.html">Catálogo</a></li>
+     <li><a href="form_pedido.html">Realizar Pedido</a></li>
+     <li><a href="pedidos.html">Mis Pedidos</a></li>
+     <li><a href="ofertas.html" class="active">Ofertas Especiales</a></li>
+    </ul>
+   </nav>
+   <main class="main-content">
+    <section class="intro-section">
+     <h2>📢 Ofertas en Abarrotes</h2>
+     <p>Aprovecha los precios de liquidación en productos de despensa con fecha de vencimiento próxima. ¡Ayúdanos a evitar el desperdicio!</p>
+    </section>
+    <section class="offers-grid">
+     <div class="offer-card animate-pulse-card">
+      <div class="badge-discount">-46%</div>
+      <h3>Arroz Extra (5kg)</h3>
+      <p class="details">Bolsa sellada. Vence: 25 de abril.</p>
+      <div class="price-container">
+       <span class="old-price">S/ 22.50</span> <span class="new-price">S/ 12.00</span>
+      </div>
+      <span class="stock-warning animate-alert">⚠️ ¡ÚLTIMOS 3 SACOS!</span> <a href="form_pedido.html" class="btn-order">Añadir al Pedido</a>
+     </div>
+     <div class="offer-card">
+      <div class="badge-discount">-40%</div>
+      <h3>Aceite Vegetal (1L)</h3>
+      <p class="details">Marca Premium. Vence: 22 de abril.</p>
+      <div class="price-container">
+       <span class="old-price">S/ 11.00</span> <span class="new-price">S/ 6.50</span>
+      </div>
+      <span class="stock-warning animate-alert">⚠️ ¡SOLO QUEDAN 5!</span> <a href="form_pedido.html" class="btn-order">Añadir al Pedido</a>
+     </div>
+     <div class="offer-card">
+      <div class="badge-discount">-36%</div>
+      <h3>Leche Evaporada (6-Pack)</h3>
+      <p class="details">Pack de 6 latas. Vence: 30 de abril.</p>
+      <div class="price-container">
+       <span class="old-price">S/ 25.00</span> <span class="new-price">S/ 16.00</span>
+      </div>
+      <span class="stock-warning">⚠️ ¡OFERTA LIMITADA!</span> <a href="form_pedido.html" class="btn-order">Añadir al Pedido</a>
+     </div>
+     <div class="offer-card">
+      <div class="badge-discount">-54%</div>
+      <h3>Fideos Spaghetti (1kg)</h3>
+      <p class="details">Paquete familiar. Vence: 28 de abril.</p>
+      <div class="price-container">
+       <span class="old-price">S/ 5.50</span> <span class="new-price">S/ 2.50</span>
+      </div>
+      <span class="stock-warning">⚠️ ¡SE ACABA PRONTO!</span> <a href="form_pedido.html" class="btn-order">Añadir al Pedido</a>
+     </div>
+    </section>
+    <section class="table-container">
+     <h3>Resumen de Disponibilidad</h3>
+     <table class="styled-table">
+      <thead>
+       <tr>
+        <th>Producto</th>
+        <th>Precio Regular</th>
+        <th>Precio Rebajado</th>
+        <th>Estado</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>Arroz Extra (5kg)</td>
+        <td class="td-old">S/ 22.50</td>
+        <td class="td-new">S/ 12.00</td>
+        <td><span class="table-badge text-red">Últimos 3</span></td>
+       </tr>
+       <tr>
+        <td>Aceite Vegetal (1L)</td>
+        <td class="td-old">S/ 11.00</td>
+        <td class="td-new">S/ 6.50</td>
+        <td><span class="table-badge text-red">Solo quedan 5</span></td>
+       </tr>
+       <tr>
+        <td>Leche Evaporada</td>
+        <td class="td-old">S/ 25.00</td>
+        <td class="td-new">S/ 16.00</td>
+        <td><span class="table-badge text-orange">Limitado</span></td>
+       </tr>
+       <tr>
+        <td>Fideos Spaghetti</td>
+        <td class="td-old">S/ 5.50</td>
+        <td class="td-new">S/ 2.50</td>
+        <td><span class="table-badge text-orange">Pronto</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </section>
+   </main>
+   <footer class="main-footer">
+    <div class="footer-info">
+     <p><strong>Eco comida Ica</strong> | Ubicación: Av. Municipalidad, Ica</p>
+     <p>Atención al cliente: 056-123456</p>
+    </div>
+    <div class="footer-copyright">
+     <p>© 2026 Taller de Programación Web - UTP</p>
+    </div>
+   </footer>
+  </div>
+ </body>
 </html>
