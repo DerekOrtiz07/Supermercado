@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario de Pedido - 🛒 Supermercado </title>
+    <title>Formulario de Pedido - 🛒 Supermercado</title>
 
     <link
       rel="stylesheet"
@@ -11,8 +11,6 @@
     />
 
     <style>
-      
-
       body {
         background-image:
           linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
@@ -44,7 +42,6 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       }
 
-    
       nav a {
         color: rgb(255, 255, 255);
         text-decoration: none;
@@ -63,7 +60,6 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      
       main {
         width: 90%;
         max-width: 900px;
@@ -72,12 +68,9 @@
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-        /* ANIMACION */
         animation: aparecer 2s ease;
       }
 
-      
       form {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -140,7 +133,16 @@
         width: 70px;
       }
 
-      /* BOTON */
+      .total-destacado {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #e8f5e9;
+        border-left: 5px solid #2e7d32;
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #1b5e20;
+      }
+
       button {
         background-color: #2e7d32;
         color: white;
@@ -157,7 +159,6 @@
         transform: scale(1.05);
       }
 
-      /* FOOTER */
       footer {
         background-color: #0f3111;
         color: white;
@@ -182,7 +183,6 @@
         transform: scale(1.2);
       }
 
-      /* ANIMACION */
       @keyframes aparecer {
         from {
           opacity: 0;
@@ -194,17 +194,14 @@
         }
       }
 
-      /* RESPONSIVE */
       @media (max-width: 768px) {
         form {
           grid-template-columns: 1fr;
         }
-
         nav a {
           display: block;
           margin: 10px 0;
         }
-
         main {
           padding: 20px;
         }
@@ -215,7 +212,6 @@
   <body>
     <header>
       <h1>🛒 Supermercado : Rescate de Alimentos</h1>
-
       <nav>
         <a href="index.html">Inicio</a>
         <a href="menu.html">Regresar al Menú</a>
@@ -223,31 +219,22 @@
     </header>
     <main>
       <h2>Realizar Pedido</h2>
-
-      <p>
-        Completa tus datos para reservar tus alimentos y evitar el desperdicio.
-      </p>
-
+      <p>Completa tus datos para reservar tus alimentos y evitar el desperdicio.</p>
       <br />
 
-      <form action="pedidos.html" method="get">
+      <form id="formPedido" action="pedidos.html" method="get">
         <fieldset>
           <legend>Información del Cliente</legend>
-
           <p>
             <label for="nombre">Nombre Completo:</label><br />
             <input type="text" id="nombre" name="nombre" required />
           </p>
-
           <br />
-
           <p>
             <label for="direccion">Dirección de Entrega:</label><br />
             <input type="text" id="direccion" name="direccion" required />
           </p>
-
           <br />
-
           <p>
             <label for="telefono">Teléfono de contacto:</label><br />
             <input type="tel" id="telefono" name="telefono" required />
@@ -256,69 +243,63 @@
 
         <fieldset>
           <legend>Selección de Productos</legend>
-
           <p>Selecciona los productos que deseas rescatar:</p>
 
           <div class="productos">
             <div class="producto-item">
               <input type="checkbox" id="plato1" name="platos" value="leche" />
               <label for="plato1">Leche Gloria 1L (S/ 5.00)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato1" class="cant-prod" data-precio="5.00" min="0" max="10" value="0" disabled />
             </div>
 
             <div class="producto-item">
               <input type="checkbox" id="plato2" name="platos" value="pan" />
               <label for="plato2">Pan molde (S/ 1.80)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato2" class="cant-prod" data-precio="1.80" min="0" max="10" value="0" disabled />
             </div>
 
             <div class="producto-item">
               <input type="checkbox" id="plato3" name="platos" value="yogurt" />
               <label for="plato3">Yogurt de fresa (S/ 3.60)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato3" class="cant-prod" data-precio="3.60" min="0" max="10" value="0" disabled />
             </div>
 
             <div class="producto-item">
               <input type="checkbox" id="plato4" name="platos" value="queso" />
               <label for="plato4">Queso fresco (S/ 3.50)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato4" class="cant-prod" data-precio="3.50" min="0" max="10" value="0" disabled />
             </div>
 
             <div class="producto-item">
               <input type="checkbox" id="plato5" name="platos" value="atun" />
               <label for="plato5">Atún Florida (S/ 6.40)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato5" class="cant-prod" data-precio="6.40" min="0" max="10" value="0" disabled />
             </div>
 
             <div class="producto-item">
               <input type="checkbox" id="plato6" name="platos" value="aceite" />
               <label for="plato6">Aceite Primor (S/ 6.80)</label>
-              <input type="number" min="0" max="10" value="0" />
+              <input type="number" id="cant_plato6" class="cant-prod" data-precio="6.80" min="0" max="10" value="0" disabled />
             </div>
           </div>
-
           <br />
 
           <p>
             <label for="cantidad">Cantidad total de productos:</label><br />
-            <input type="number"id="cantidad"name="cantidad"
-              min="1"
-              max="50"
-              value="1"
-            />
+            <input type="number" id="cantidad" name="cantidad" min="0" max="50" value="0" readonly />
           </p>
+
+          <div id="precioTotalContenedor" class="total-destacado">
+            Precio Total Estimado: S/ <span id="montoTotal">0.00</span>
+          </div>
         </fieldset>
 
         <div>
           <button type="submit">Enviar Pedido</button>
         </div>
       </form>
-
       <br />
-
-      <p>
-        <a href="index.html">Volver al Inicio</a>
-      </p>
+      <p><a href="index.html">Volver al Inicio</a></p>
     </main>
 
     <footer>
@@ -327,8 +308,106 @@
         <a href="#"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-whatsapp"></i></a>
       </div>
-
-      <p>&copy; 2026 - Avance de Proyecto Final 1</p>
+      <p>&copy; 2026 - Avance de Proyecto Final 3</p>
     </footer>
+
+    <script>
+      const form = document.getElementById('formPedido');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"][name="platos"]');
+      const inputCantidadTotal = document.getElementById('cantidad');
+      const spanMontoTotal = document.getElementById('montoTotal');
+
+      // Nueva función optimizada para lectura local directa
+      function calcularTotales() {
+        let acumuladorUnidades = 0;
+        let acumuladorPrecio = 0;
+
+        checkboxes.forEach(checkbox => {
+          // Buscamos el input numérico directamente usando su ID correspondiente
+          const inputNumero = document.getElementById('cant_' + checkbox.id);
+          
+          if (checkbox.checked) {
+            inputNumero.disabled = false;
+            if (parseInt(inputNumero.value) === 0) {
+              inputNumero.value = 1;
+            }
+            const cantidadSeleccionada = parseInt(inputNumero.value) || 0;
+            const precioUnitario = parseFloat(inputNumero.getAttribute('data-precio'));
+
+            acumuladorUnidades += cantidadSeleccionada;
+            acumuladorPrecio += (cantidadSeleccionada * precioUnitario);
+          } else {
+            inputNumero.disabled = true;
+            inputNumero.value = 0;
+          }
+        });
+
+        inputCantidadTotal.value = acumuladorUnidades;
+        spanMontoTotal.textContent = acumuladorPrecio.toFixed(2);
+      }
+
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', calcularTotales);
+        const inputNumero = document.getElementById('cant_' + checkbox.id);
+        inputNumero.addEventListener('input', calcularTotales);
+      });
+
+      // Modifica la sección final dentro del evento submit
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const totalProductos = parseInt(inputCantidadTotal.value);
+
+        if (totalProductos === 0) {
+          alert('❌ Error: Debes seleccionar al menos un producto.');
+          return;
+        }
+
+        // Recolectar nombres y cantidades de los productos
+        let listaProductos = [];
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            const inputNumero = document.getElementById('cant_' + checkbox.id);
+            const cantidad = inputNumero.value;
+            // Buscamos el texto del producto (ej: Leche Gloria)
+            const nombreProducto = checkbox.parentElement.querySelector('label').textContent.split('(')[0].trim();
+            listaProductos.push(`${nombreProducto} (x${cantidad})`);
+          }
+        });
+        // Lo unimos en un solo texto separado por comas
+        const textoProductos = listaProductos.join(', ');
+
+        const objetoPedido = {
+          nombre: nombre,
+          direccion: direccion,
+          telefono: telefono,
+          cantidad: totalProductos,
+          productos: textoProductos // Enviamos la lista armada
+        };
+
+        fetch('http://127.0.0.1:8080/api/guardar_pedido', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(objetoPedido)
+        })
+        // .fetch
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            alert('🎉 ¡Éxito! Pedido guardado en la Base de Datos Relacional.');
+            window.location.href = 'pedidos.html'; 
+          } else {
+            alert('❌ Error en el servidor: ' + data.mensaje);
+          }
+        })
+        .catch(error => {
+          console.error('Error de conexión:', error);
+          alert('❌ No se pudo conectar con la Base de Datos. ¿Recuerda tener encendido el comando python app.py en tu consola?');
+        });
+      });
+    </script>
   </body>
 </html>
