@@ -16,7 +16,14 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+
+            /* IMAGEN DE FONDO: misma técnica que login.html y form_pedido.html */
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+                url("bodyyy.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
 
             /* FLEXBOX */
             display: flex;
@@ -49,6 +56,9 @@
 
             /* ANIMACIÓN */
             animation: aparecer 0.8s ease;
+
+            /* Borde superior verde, igual que en login.html */
+            border-top: 6px solid #2e7d32;
         }
 
         @keyframes aparecer {
@@ -67,8 +77,9 @@
             text-align: center;
         }
 
+        /* CAMBIO DE COLOR: de azul a verde oscuro */
         .encabezado-registro h1 {
-            color: #1e3c72;
+            color: #1b5e20;
             margin-bottom: 10px;
             font-size: 32px;
         }
@@ -106,21 +117,23 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
+        /* CAMBIO DE COLOR: borde/sombra al enfocar un input, ahora verde */
         .grupo-input input:focus {
-            border-color: #2a5298;
-            box-shadow: 0 0 8px rgba(42, 82, 152, 0.4);
+            border-color: #2e7d32;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.4);
         }
 
         .campo-completo {
             grid-column: span 2;
         }
 
+        /* CAMBIO DE COLOR: botón principal ahora verde */
         .btn-registrar {
             grid-column: span 2;
             padding: 13px;
             border: none;
             border-radius: 10px;
-            background-color: #1e3c72;
+            background-color: #2e7d32;
             color: white;
             font-size: 16px;
             font-weight: bold;
@@ -130,8 +143,9 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
+        /* CAMBIO DE COLOR: hover más oscuro */
         .btn-registrar:hover {
-            background-color: #2a5298;
+            background-color: #1b5e20;
             transform: scale(1.04);
         }
 
@@ -140,8 +154,9 @@
             color: #555;
         }
 
+        /* CAMBIO DE COLOR: link a "Iniciar sesión" ahora verde */
         .texto-login a {
-            color: #1e3c72;
+            color: #1b5e20;
             font-weight: bold;
             text-decoration: none;
 
@@ -150,7 +165,7 @@
         }
 
         .texto-login a:hover {
-            color: #2a5298;
+            color: #2e7d32;
             text-decoration: underline;
         }
 
@@ -185,67 +200,6 @@
     </style>
 </head>
 
-<script>
-  // Capturamos el formulario y los campos que vamos a necesitar
-  const formRegistro = document.getElementById('formRegistro');
-  const inputNombre = document.getElementById('nombre');
-  const inputCorreo = document.getElementById('correo');
-  const inputPassword = document.getElementById('password');
-  const inputConfirmar = document.getElementById('confirmar');
-
-  // EVENTO: se ejecuta cuando el usuario da clic en "Registrar"
-  formRegistro.addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que la página se recargue
-
-    const nombre = inputNombre.value.trim();
-    const correo = inputCorreo.value.trim();
-    const password = inputPassword.value;
-    const confirmar = inputConfirmar.value;
-
-    // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
-    if (nombre === '' || correo === '' || password === '' || confirmar === '') {
-      alert('❌ Debes completar todos los campos.');
-      return;
-    }
-
-    // VALIDACIÓN BÁSICA: las contraseñas deben coincidir
-    if (password !== confirmar) {
-      alert('❌ Las contraseñas no coinciden.');
-      return;
-    }
-
-    const objetoUsuario = {
-      nombre: nombre,
-      correo: correo,
-      password: password
-    };
-
-    fetch('http://127.0.0.1:8080/api/registrar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(objetoUsuario)
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'success') {
-          // Registro exitoso: avisamos y mandamos al login
-          alert('🎉 ¡Registro exitoso! Ahora puedes iniciar sesión.');
-          window.location.href = 'login.html';
-        } else if (data.mensaje === 'Ese correo ya está registrado') {
-          // CASO ESPECÍFICO pedido: el correo ya existe en la base de datos
-          alert('⚠️ Esta persona ya fue registrada.');
-        } else {
-          // Cualquier otro error (ej: campos faltantes)
-          alert('❌ Error: ' + data.mensaje);
-        }
-      })
-      .catch(error => {
-        console.error('Error de conexión:', error);
-        alert('❌ No se pudo conectar con el servidor. ¿Está corriendo python app.py?');
-      });
-  });
-</script>
-
 <body>
 
     <main class="contenedor-registro">
@@ -258,8 +212,8 @@
             </div>
 
             <!-- Le quitamos action="login.html" y method="get" porque ahora 
-     JavaScript se encarga de enviar los datos, no el navegador directamente -->
-                <form class="formulario-registro" id="formRegistro">
+                 JavaScript se encarga de enviar los datos, no el navegador directamente -->
+            <form class="formulario-registro" id="formRegistro">
 
                 <div class="grupo-input campo-completo">
                     <label for="nombre">Nombre completo:</label>
@@ -295,6 +249,65 @@
         </section>
 
     </main>
+
+    
+    <script>
+      // Capturamos el formulario y los campos que vamos a necesitar
+      const formRegistro = document.getElementById('formRegistro');
+      const inputNombre = document.getElementById('nombre');
+      const inputCorreo = document.getElementById('correo');
+      const inputPassword = document.getElementById('password');
+      const inputConfirmar = document.getElementById('confirmar');
+
+      // EVENTO: se ejecuta cuando el usuario da clic en "Registrar"
+      formRegistro.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        const nombre = inputNombre.value.trim();
+        const correo = inputCorreo.value.trim();
+        const password = inputPassword.value;
+        const confirmar = inputConfirmar.value;
+
+        // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
+        if (nombre === '' || correo === '' || password === '' || confirmar === '') {
+          alert('❌ Debes completar todos los campos.');
+          return;
+        }
+
+        // VALIDACIÓN BÁSICA: las contraseñas deben coincidir
+        if (password !== confirmar) {
+          alert('❌ Las contraseñas no coinciden.');
+          return;
+        }
+
+        const objetoUsuario = {
+          nombre: nombre,
+          correo: correo,
+          password: password
+        };
+
+        fetch('http://127.0.0.1:8080/api/registrar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(objetoUsuario)
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              alert('🎉 ¡Registro exitoso! Ahora puedes iniciar sesión.');
+              window.location.href = 'login.html';
+            } else if (data.mensaje === 'Ese correo ya está registrado') {
+              alert('⚠️ Esta persona ya fue registrada.');
+            } else {
+              alert('❌ Error: ' + data.mensaje);
+            }
+          })
+          .catch(error => {
+            console.error('Error de conexión:', error);
+            alert('❌ No se pudo conectar con el servidor. ¿Está corriendo python app.py?');
+          });
+      });
+    </script>
 
 </body>
 </html>
