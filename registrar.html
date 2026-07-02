@@ -184,6 +184,68 @@
         }
     </style>
 </head>
+
+<script>
+  // Capturamos el formulario y los campos que vamos a necesitar
+  const formRegistro = document.getElementById('formRegistro');
+  const inputNombre = document.getElementById('nombre');
+  const inputCorreo = document.getElementById('correo');
+  const inputPassword = document.getElementById('password');
+  const inputConfirmar = document.getElementById('confirmar');
+
+  // EVENTO: se ejecuta cuando el usuario da clic en "Registrar"
+  formRegistro.addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita que la página se recargue
+
+    const nombre = inputNombre.value.trim();
+    const correo = inputCorreo.value.trim();
+    const password = inputPassword.value;
+    const confirmar = inputConfirmar.value;
+
+    // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
+    if (nombre === '' || correo === '' || password === '' || confirmar === '') {
+      alert('❌ Debes completar todos los campos.');
+      return;
+    }
+
+    // VALIDACIÓN BÁSICA: las contraseñas deben coincidir
+    if (password !== confirmar) {
+      alert('❌ Las contraseñas no coinciden.');
+      return;
+    }
+
+    const objetoUsuario = {
+      nombre: nombre,
+      correo: correo,
+      password: password
+    };
+
+    fetch('http://127.0.0.1:8080/api/registrar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(objetoUsuario)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Registro exitoso: avisamos y mandamos al login
+          alert('🎉 ¡Registro exitoso! Ahora puedes iniciar sesión.');
+          window.location.href = 'login.html';
+        } else if (data.mensaje === 'Ese correo ya está registrado') {
+          // CASO ESPECÍFICO pedido: el correo ya existe en la base de datos
+          alert('⚠️ Esta persona ya fue registrada.');
+        } else {
+          // Cualquier otro error (ej: campos faltantes)
+          alert('❌ Error: ' + data.mensaje);
+        }
+      })
+      .catch(error => {
+        console.error('Error de conexión:', error);
+        alert('❌ No se pudo conectar con el servidor. ¿Está corriendo python app.py?');
+      });
+  });
+</script>
+
 <body>
 
     <main class="contenedor-registro">
@@ -195,8 +257,9 @@
                 <p>Crea tu cuenta para acceder al sistema</p>
             </div>
 
-            <!-- Solo HTML: sin JavaScript -->
-            <form class="formulario-registro" action="login.html" method="get">
+            <!-- Le quitamos action="login.html" y method="get" porque ahora 
+     JavaScript se encarga de enviar los datos, no el navegador directamente -->
+                <form class="formulario-registro" id="formRegistro">
 
                 <div class="grupo-input campo-completo">
                     <label for="nombre">Nombre completo:</label>
