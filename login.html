@@ -170,6 +170,48 @@
         }
     </style>
 </head>
+
+<script>
+  // Capturamos el formulario y los campos de entrada
+  const formLogin = document.getElementById('formLogin');
+  const inputUsuario = document.getElementById('usuario'); // Aquí se ingresa el CORREO
+  const inputPassword = document.getElementById('password');
+
+  // EVENTO: se ejecuta cuando el usuario da clic en "Ingresar"
+  formLogin.addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita que la página se recargue
+
+    const correo = inputUsuario.value.trim();
+    const password = inputPassword.value;
+
+    // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
+    if (correo === '' || password === '') {
+      alert('❌ Debes completar ambos campos.');
+      return;
+    }
+
+    fetch('http://127.0.0.1:8080/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ correo: correo, password: password })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Credenciales correctas: avisamos que ya puede acceder
+          alert('✅ Esta persona ya puede iniciar sesión. ¡Bienvenido, ' + data.nombre + '!');
+          window.location.href = 'index.html';
+        } else {
+          // Correo/contraseña incorrectos
+          alert('❌ ' + data.mensaje);
+        }
+      })
+      .catch(error => {
+        console.error('Error de conexión:', error);
+        alert('❌ No se pudo conectar con el servidor.');
+      });
+  });
+</script>
 <body>
 
     <main class="contenedor-login">
@@ -181,8 +223,9 @@
                 <p>Bienvenido, ingresa tus datos para continuar</p>
             </div>
 
-            <!-- Solo HTML: sin JavaScript -->
-            <form class="formulario-login" action="index.html" method="get">
+            <!-- Le quitamos action="index.html" y method="get" porque ahora 
+     JavaScript se encarga de enviar los datos, no el navegador directamente -->
+            <form class="formulario-login" id="formLogin">
 
                 <div class="grupo-input">
                     <label for="usuario">Usuario:</label>
