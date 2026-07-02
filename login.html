@@ -16,7 +16,17 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+
+            /* IMAGEN DE FONDO: la misma técnica que usamos en form_pedido.html.
+               El gradiente blanco semi-transparente (rgba) se coloca ENCIMA de la
+               imagen, para que se note de fondo pero no compita visualmente
+               con el formulario. Mientras más alto el 0.7-0.8, más "lavada" se ve. */
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+                url("bodyyy.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
 
             /* FLEXBOX */
             display: flex;
@@ -49,6 +59,9 @@
 
             /* ANIMACIÓN */
             animation: aparecer 0.8s ease;
+
+            /* Borde superior verde para reforzar la identidad del sitio */
+            border-top: 6px solid #2e7d32;
         }
 
         @keyframes aparecer {
@@ -67,8 +80,9 @@
             text-align: center;
         }
 
+        /* CAMBIO DE COLOR: de azul (#1e3c72) a verde oscuro (#1b5e20) */
         .encabezado-login h1 {
-            color: #1e3c72;
+            color: #1b5e20;
             margin-bottom: 10px;
             font-size: 32px;
         }
@@ -106,16 +120,18 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
+        /* CAMBIO DE COLOR: el borde/sombra al enfocar un input ahora es verde */
         .grupo-input input:focus {
-            border-color: #2a5298;
-            box-shadow: 0 0 8px rgba(42, 82, 152, 0.4);
+            border-color: #2e7d32;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.4);
         }
 
+        /* CAMBIO DE COLOR: botón principal ahora verde (#2e7d32) */
         .btn-ingresar {
             padding: 13px;
             border: none;
             border-radius: 10px;
-            background-color: #1e3c72;
+            background-color: #2e7d32;
             color: white;
             font-size: 16px;
             font-weight: bold;
@@ -125,8 +141,9 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
+        /* CAMBIO DE COLOR: hover más oscuro, igual que en tu index.html */
         .btn-ingresar:hover {
-            background-color: #2a5298;
+            background-color: #1b5e20;
             transform: scale(1.04);
         }
 
@@ -135,8 +152,9 @@
             color: #555;
         }
 
+        /* CAMBIO DE COLOR: el link a "Regístrate" ahora es verde */
         .texto-registro a {
-            color: #1e3c72;
+            color: #1b5e20;
             font-weight: bold;
             text-decoration: none;
 
@@ -145,7 +163,7 @@
         }
 
         .texto-registro a:hover {
-            color: #2a5298;
+            color: #2e7d32;
             text-decoration: underline;
         }
 
@@ -171,47 +189,6 @@
     </style>
 </head>
 
-<script>
-  // Capturamos el formulario y los campos de entrada
-  const formLogin = document.getElementById('formLogin');
-  const inputUsuario = document.getElementById('usuario'); // Aquí se ingresa el CORREO
-  const inputPassword = document.getElementById('password');
-
-  // EVENTO: se ejecuta cuando el usuario da clic en "Ingresar"
-  formLogin.addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que la página se recargue
-
-    const correo = inputUsuario.value.trim();
-    const password = inputPassword.value;
-
-    // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
-    if (correo === '' || password === '') {
-      alert('❌ Debes completar ambos campos.');
-      return;
-    }
-
-    fetch('http://127.0.0.1:8080/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ correo: correo, password: password })
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'success') {
-          // Credenciales correctas: avisamos que ya puede acceder
-          alert('✅ Esta persona ya puede iniciar sesión. ¡Bienvenido, ' + data.nombre + '!');
-          window.location.href = 'index.html';
-        } else {
-          // Correo/contraseña incorrectos
-          alert('❌ ' + data.mensaje);
-        }
-      })
-      .catch(error => {
-        console.error('Error de conexión:', error);
-        alert('❌ No se pudo conectar con el servidor.');
-      });
-  });
-</script>
 <body>
 
     <main class="contenedor-login">
@@ -224,7 +201,7 @@
             </div>
 
             <!-- Le quitamos action="index.html" y method="get" porque ahora 
-     JavaScript se encarga de enviar los datos, no el navegador directamente -->
+                 JavaScript se encarga de enviar los datos, no el navegador directamente -->
             <form class="formulario-login" id="formLogin">
 
                 <div class="grupo-input">
@@ -251,6 +228,48 @@
         </section>
 
     </main>
+
+   
+    <script>
+      // Capturamos el formulario y los campos de entrada
+      const formLogin = document.getElementById('formLogin');
+      const inputUsuario = document.getElementById('usuario'); // Aquí se ingresa el CORREO
+      const inputPassword = document.getElementById('password');
+
+      // EVENTO: se ejecuta cuando el usuario da clic en "Ingresar"
+      formLogin.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        const correo = inputUsuario.value.trim();
+        const password = inputPassword.value;
+
+        // VALIDACIÓN BÁSICA: ningún campo puede estar vacío
+        if (correo === '' || password === '') {
+          alert('❌ Debes completar ambos campos.');
+          return;
+        }
+
+        // Enviamos las credenciales al backend para que las verifique contra la BD
+        fetch('http://127.0.0.1:8080/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ correo: correo, password: password })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              alert('✅ Esta persona ya puede iniciar sesión. ¡Bienvenido, ' + data.nombre + '!');
+              window.location.href = 'index.html';
+            } else {
+              alert('❌ ' + data.mensaje);
+            }
+          })
+          .catch(error => {
+            console.error('Error de conexión:', error);
+            alert('❌ No se pudo conectar con el servidor. ¿Está corriendo python app.py?');
+          });
+      });
+    </script>
 
 </body>
 </html>
