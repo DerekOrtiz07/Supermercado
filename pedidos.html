@@ -3,109 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos Realizados</title>
+    <title>Pedidos Realizados - EcoComida</title>
 
 <style>
-
-/* ESTILO GENERAL */
-body{
+body {
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #dbeafe, #f0f9ff);
+    background: linear-gradient(to right, #e8f5e9, #f1f8e9); /* Verde menta/claro suave */
     margin:0;
     padding:20px;
 }
 
-/* TITULO */
-h1{
-    color:#003366;
+h1 {
+    color:#1b5e20; /* Verde bosque oscuro */
     font-size:35px;
 }
 
-/* TABLA */
-table{
+table {
     background:white;
     border-collapse:collapse;
     border-radius:15px;
     overflow:hidden;
-    box-shadow:0px 6px 15px rgba(0,0,0,0.2);
-
+    box-shadow:0px 6px 15px rgba(0,0,0,0.15);
     transition:0.3s;
+    width: 75%;
+    margin: 0 auto;
 }
 
-/* EFECTO */
-table:hover{
+table:hover {
     transform:scale(1.02);
 }
 
-th{
-    background:#0077cc;
+th {
+    background:#2e7d32; /* Verde corporativo Eco */
     color:white;
     padding:15px;
     font-size:18px;
 }
 
-td{
+td {
     padding:12px;
     text-align:center;
 }
 
-tr:nth-child(even){
-    background:#f2f9ff;
+tr:nth-child(even) {
+    background:#f9fbe7; /* Sutil toque verde/lima claro */
 }
 
-tr:hover{
-    background:#dbeafe;
+tr:hover {
+    background:#c8e6c9; /* Verde pastel al pasar el cursor */
 }
 
-/* ESTADOS */
-.enviado{
-    color:green;
-    font-weight:bold;
+/* --- CLASES DE ESTADO ESTILIZADAS ESTILO DELIVERY --- */
+.preparando {
+    background-color: #fff3e0; /* Se mantiene naranja suave para denotar espera/proceso */
+    color: #e65100;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
 }
 
-.proceso{
-    color:orange;
-    font-weight:bold;
+.proceso {
+    background-color: #e3f2fd; /* Azul suave para distribución/camino */
+    color: #0d47a1;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
 }
 
-.preparando{
-    color:#0077cc;
-    font-weight:bold;
+.enviado {
+    background-color: #a5d6a7; /* Verde más vivo para completado */
+    color: #1b5e20;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
 }
 
-/* LINK */
-a{
+/* Efecto feedback al pasar el mouse por encima del estado */
+.preparando:hover, .proceso:hover, .enviado:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+a {
     text-decoration:none;
-    background:#003366;
+    background:#2e7d32; /* Verde combinando con la tabla */
     color:white;
     padding:12px 20px;
     border-radius:10px;
     font-weight:bold;
-
     transition:0.3s;
 }
 
-a:hover{
-    background:#001f3f;
+a:hover {
+    background:#1b5e20; /* Verde más oscuro al pasar el cursor */
     transform:scale(1.05);
 }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-
-    table{
+@media(max-width:768px) {
+    table {
         width:100%;
         font-size:12px;
     }
-
-    h1{
+    h1 {
         font-size:24px;
     }
-
 }
-
 </style>
-
 </head>
 
 <body>
@@ -114,114 +129,123 @@ a:hover{
     <h1>📦 Pedidos Realizados</h1>
 </center>
 
-<table border="1" width="75%" align="center" cellpadding="6">
-
-    <tr>
-        <th>N°</th>
-        <th>Cliente</th>
-        <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Total</th>
-        <th>Estado</th>
-    </tr>
-
-    <tr>
-        <td>001</td>
-        <td>José</td>
-        <td>Leche Gloria 1L</td>
-        <td>2</td>
-        <td>S/ 5.00</td>
-        <td class="enviado">Enviado</td>
-    </tr>
-
-    <tr>
-        <td>002</td>
-        <td>María</td>
-        <td>Pan de molde</td>
-        <td>1</td>
-        <td>S/ 1.80</td>
-        <td class="proceso">En Proceso</td>
-    </tr>
-
-    <tr>
-        <td>003</td>
-        <td>Carlos</td>
-        <td>Yogurt Fresa</td>
-        <td>3</td>
-        <td>S/ 3.60</td>
-        <td class="preparando">Preparando</td>
-    </tr>
-
-    <tr>
-        <td>004</td>
-        <td>Ana</td>
-        <td>Queso fresco</td>
-        <td>1</td>
-        <td>S/ 3.50</td>
-        <td class="enviado">Enviado</td>
-    </tr>
-
-    <tr>
-        <td>005</td>
-        <td>Luis</td>
-        <td>Atún Florida</td>
-        <td>2</td>
-        <td>S/ 6.40</td>
-        <td class="proceso">En Proceso</td>
-    </tr>
-
-    <tr>
-        <td>006</td>
-        <td>Sofía</td>
-        <td>Aceite Primor 1L</td>
-        <td>1</td>
-        <td>S/ 6.80</td>
-        <td class="preparando">Preparando</td>
-    </tr>
-
-    <tr>
-        <td>007</td>
-        <td>Pedro</td>
-        <td>Fideos</td>
-        <td>4</td>
-        <td>S/ 8.00</td>
-        <td class="enviado">Enviado</td>
-    </tr>
-
-    <tr>
-        <td>008</td>
-        <td>Lucía</td>
-        <td>Pan Rapiditos</td>
-        <td>2</td>
-        <td>S/ 8.00</td>
-        <td class="proceso">En Proceso</td>
-    </tr>
-
-    <tr>
-        <td>009</td>
-        <td>Diego</td>
-        <td>Shampoo Head & Shoulders</td>
-        <td>1</td>
-        <td>S/ 12.00</td>
-        <td class="enviado">Enviado</td>
-    </tr>
-
-    <tr>
-        <td>010</td>
-        <td>Valeria</td>
-        <td>Pizza para hornear</td>
-        <td>2</td>
-        <td>S/ 17.00</td>
-        <td class="preparando">Preparando</td>
-    </tr>
-
+<table id="tablaPedidos" border="1" style="border: 1px solid #e0e0e0;">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>Cliente</th>
+            <th>Productos Solicitados</th>
+            <th>Cantidad Total</th>
+            <th>Estado (Haz Click)</th>
+        </tr>
+    </thead>
+    <tbody>
+        </tbody>
 </table>
 
-<br>
+<br><br>
 
 <center>
     <a href="index.html">⬅ Inicio</a>
 </center>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tbody = document.querySelector("#tablaPedidos tbody");
+
+        // 1. Cargar pedidos desde la Base de Datos al abrir la página
+        fetch("http://127.0.0.1:8080/api/obtener_pedidos")
+            .then(response => response.json())
+            .then(pedidos => {
+                tbody.innerHTML = "";
+
+                if (pedidos.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5">No hay pedidos registrados actualmente.</td></tr>`;
+                    return;
+                }
+
+                pedidos.forEach(pedido => {
+                    const fila = document.createElement("tr");
+                    
+                    let claseEstado = "preparando";
+                    let textoEstado = pedido.estado || "Preparando";
+                    
+                    if (textoEstado === "En Proceso" || textoEstado === "proceso") {
+                        claseEstado = "proceso";
+                        textoEstado = "En Proceso";
+                    } else if (textoEstado === "Enviado" || textoEstado === "enviado") {
+                        claseEstado = "enviado";
+                        textoEstado = "Enviado";
+                    } else {
+                        textoEstado = "Preparando";
+                    }
+
+                    fila.innerHTML = `
+                        <td>${pedido.id}</td>
+                        <td><strong>${pedido.cliente}</strong></td>
+                        <td>${pedido.productos}</td>
+                        <td>${pedido.cantidad} unidades</td>
+                        <td>
+                            <span class="${claseEstado}" data-id="${parseInt(pedido.id)}" onclick="cambiarEstadoCelda(this)">
+                                ${textoEstado}
+                            </span>
+                        </td>
+                    `;
+                    tbody.appendChild(fila);
+                });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                tbody.innerHTML = `<tr><td colspan="5" style="color: red;">❌ Error al conectar con el servidor.</td></tr>`;
+            });
+    });
+
+    // 2. Función encargada de la lógica interactiva del Click
+    function cambiarEstadoCelda(elemento) {
+        const pedidoId = elemento.getAttribute('data-id');
+        const estadoActual = elemento.textContent.trim();
+        
+        let siguienteEstado = "";
+        let nuevaClase = "";
+
+        if (estadoActual === "Preparando") {
+            siguienteEstado = "En Proceso";
+            nuevaClase = "proceso";
+        } else if (estadoActual === "En Proceso") {
+            siguienteEstado = "Enviado";
+            nuevaClase = "enviado";
+        } else {
+            siguienteEstado = "Preparando";
+            nuevaClase = "preparando";
+        }
+
+        const datosCambio = {
+            id: pedidoId,
+            estado: siguienteEstado
+        };
+
+        fetch('http://127.0.0.1:8080/api/actualizar_estado', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosCambio)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                elemento.textContent = siguienteEstado;
+                elemento.className = nuevaClase;
+            } else {
+                alert('❌ Error al actualizar el estado en el servidor: ' + data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error('Error de red:', error);
+            alert('❌ Error de comunicación con la base de datos.');
+        });
+    }
+</script>
 
 </body>
 </html>
