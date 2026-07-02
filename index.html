@@ -91,7 +91,93 @@ header p{
     margin-top:10px;
     font-size:18px;
 }
+.hero{
 
+animation:entrada 1.2s ease;
+
+}
+
+@keyframes entrada{
+
+from{
+
+opacity:0;
+
+transform:translateY(50px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/*==========================
+MENU HAMBURGUESA
+==========================*/
+
+.menu-toggle{
+    display:none;
+    position:absolute;
+    left:20px;
+    top:20px;
+    background:#FFD54F;
+    border:none;
+    color:#1b5e20;
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:24px;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+.card:hover{
+
+transform:translateY(-12px) scale(1.05);
+
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+}
+.theme-toggle{
+    position:absolute;
+    top:15px;
+    right:190px;
+    z-index:1000;
+}
+
+.theme-toggle button{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    border:none;
+    background:#FFD54F;
+    color:#1B5E20;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+}
+}
+
+.theme-toggle button{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#FFD54F;
+    color:#1b5e20;
+    cursor:pointer;
+    font-size:20px;
+    transition:.3s;
+}
+
+.theme-toggle button:hover{
+    transform:rotate(180deg);
+}
 /*==========================
 MENU
 ===========================*/
@@ -756,8 +842,104 @@ transform:translateX(-50%);
 .testimonios h2{
     font-size:30px;
 }
+.menu-toggle{
+    display:block;
+}
+
+nav{
+    display:none;
+}
+
+nav.activo{
+    display:flex;
+}
+/*==========================
+BOTON ARRIBA
+==========================*/
+
+#btnArriba{
+
+position:fixed;
+
+bottom:30px;
+
+right:30px;
+
+width:60px;
+
+height:60px;
+
+border:none;
+
+border-radius:50%;
+
+background:#2E7D32;
+
+color:white;
+
+font-size:25px;
+
+cursor:pointer;
+
+display:none;
+
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+transition:.3s;
+
+z-index:9999;
 
 }
+
+#btnArriba:hover{
+
+transform:scale(1.1);
+
+background:#43A047;
+
+}
+/*==========================
+MODO OSCURO
+==========================*/
+
+.dark{
+
+background:#121212;
+
+color:white;
+
+}
+
+.dark header{
+
+background:#000;
+
+}
+
+.dark nav{
+
+background:#222;
+
+}
+
+.dark .card,
+.dark .beneficio,
+.dark .paso,
+.dark .extra-box{
+
+background:#222;
+
+color:white;
+
+}
+
+.dark footer{
+
+background:#000;
+
+}
+}
+
 </style>
 
 </head>
@@ -765,11 +947,18 @@ transform:translateX(-50%);
 <body>
 
 <header>
-
+<button class="menu-toggle" id="menu-toggle">
+    <i class="fa-solid fa-bars"></i>
+</button>
 <div class="login-top">
 <a href="login.html" class="btn-login">
 <i class="fa-solid fa-user"></i> Ingresar
 </a>
+    <div class="theme-toggle">
+    <button id="modoOscuro">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+</div>
 </div>
 
 <img src="img/logo.png" alt="Logo Eco Comida">
@@ -1160,6 +1349,146 @@ contacto@SuperMercado.com
 </p>
 
 </footer>
+<button id="btnArriba">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+    <button id="btnArriba">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+    <script>
+/* ==========================
+   MODO OSCURO
+========================== */
 
+const botonModo = document.getElementById("modoOscuro");
+
+botonModo.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    const icono = botonModo.querySelector("i");
+
+    if(document.body.classList.contains("dark")){
+        icono.classList.remove("fa-moon");
+        icono.classList.add("fa-sun");
+    }else{
+        icono.classList.remove("fa-sun");
+        icono.classList.add("fa-moon");
+    }
+
+});
+
+
+/* ==========================
+   BOTÓN VOLVER ARRIBA
+========================== */
+
+const btnArriba = document.getElementById("btnArriba");
+
+window.addEventListener("scroll", ()=>{
+
+    if(window.scrollY > 350){
+        btnArriba.style.display="block";
+    }else{
+        btnArriba.style.display="none";
+    }
+
+});
+
+btnArriba.addEventListener("click", ()=>{
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+/* ==========================
+   CONTADORES ANIMADOS
+========================== */
+
+const numeros = document.querySelectorAll(".slide h2");
+
+numeros.forEach(numero=>{
+
+    let texto = numero.innerText.replace(/\+/g,"").replace(/,/g,"").replace("%","");
+
+    let objetivo = parseInt(texto);
+
+    if(isNaN(objetivo)) return;
+
+    let contador=0;
+
+    let incremento=Math.ceil(objetivo/120);
+
+    const animacion=setInterval(()=>{
+
+        contador+=incremento;
+
+        if(contador>=objetivo){
+            contador=objetivo;
+            clearInterval(animacion);
+        }
+
+        if(numero.innerText.includes("%")){
+            numero.innerText=contador+"%";
+        }else{
+            numero.innerText="+"+contador.toLocaleString();
+        }
+
+    },15);
+
+});
+
+
+/* ==========================
+   ANIMACIÓN AL HACER SCROLL
+========================== */
+
+const elementos=document.querySelectorAll(".card,.beneficio,.paso,.extra-box");
+
+const mostrar=()=>{
+
+elementos.forEach(el=>{
+
+const posicion=el.getBoundingClientRect().top;
+
+if(posicion<window.innerHeight-100){
+
+el.style.opacity="1";
+el.style.transform="translateY(0)";
+
+}
+
+});
+
+}
+
+elementos.forEach(el=>{
+
+el.style.opacity="0";
+el.style.transform="translateY(50px)";
+el.style.transition="1s";
+
+});
+
+window.addEventListener("scroll",mostrar);
+
+mostrar();
+
+
+/* ==========================
+   MENSAJE BIENVENIDA
+========================== */
+
+setTimeout(()=>{
+
+alert("👋 Bienvenido a SuperMercado\nAprovecha nuestras ofertas de hasta el 70%.");
+
+},800);
+
+</script>
 </body>
 </html>
