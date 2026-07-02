@@ -2,231 +2,303 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Productos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú de Productos</title>
 
-    <style>
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, #d4edda, #f1fff5);
+    margin:0;
+    padding:20px;
+}
 
-        /* CSS */
+h1{
+    color:#1b5e20;
+    font-size:35px;
+}
 
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            /* CAMBIO DE COLOR: de azul claro a un degradado verde muy suave,
-               para que combine con el resto del sitio */
-            background: linear-gradient(to right, #e8f5e9, #f1f8e9);
-            margin:0;
-            padding:20px;
-        }
+table{
+    background:white;
+    border-collapse:collapse;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0px 6px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
 
-        h1{
-            /* CAMBIO DE COLOR: verde institucional oscuro */
-            color:#1b5e20;
-            font-size:35px;
-        }
+table:hover{
+    transform:scale(1.02);
+}
 
-        table{
-            background:white;
-            border-collapse:collapse;
-            border-radius:15px;
-            overflow:hidden;
-            box-shadow:0px 6px 15px rgba(0,0,0,0.2);
-            transition:0.3s;
-        }
+th{
+    background:#2e7d32;
+    color:white;
+    padding:15px;
+    font-size:18px;
+}
 
-        table:hover{
-            transform:scale(1.02);
-        }
+td{
+    padding:12px;
+    text-align:center;
+}
 
-        th{
-            /* CAMBIO DE COLOR: verde principal en vez de azul */
-            background:#2e7d32;
-            color:white;
-            padding:15px;
-            font-size:18px;
-        }
+tr:nth-child(even){
+    background:#edf7ed;
+}
 
-        td{
-            padding:12px;
-            text-align:center;
-        }
+tr:hover{
+    background:#d4edda;
+}
 
-        tr:nth-child(even){
-            /* CAMBIO DE COLOR: un verde muy claro para las filas alternas */
-            background:#f2f9ef;
-        }
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
 
-        tr:hover{
-            /* CAMBIO DE COLOR: verde pastel al pasar el cursor */
-            background:#c8e6c9;
-        }
+button:hover{
+    background:#1b5e20;
+    transform:scale(1.1);
+}
 
-        button{
-            /* Mantiene un verde, pero ahora coincide con la paleta institucional */
-            background:#2e7d32;
-            color:white;
-            border:none;
-            padding:10px 16px;
-            border-radius:10px;
-            cursor:pointer;
-            font-weight:bold;
-            transition:0.3s;
-        }
+a{
+    text-decoration:none;
+    background:#2e7d32;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
 
-        button:hover{
-            /* CAMBIO DE COLOR: verde más oscuro, igual que el resto del sitio */
-            background:#1b5e20;
-            transform:scale(1.1);
-        }
+a:hover{
+    background:#1b5e20;
+}
 
-        a{
-            text-decoration:none;
-            /* CAMBIO DE COLOR: verde muy oscuro (el mismo del footer del index) */
-            background:#0f3111;
-            color:white;
-            padding:12px 20px;
-            border-radius:10px;
-            font-weight:bold;
-            transition:0.3s;
-        }
+select{
+    padding:10px;
+    border:2px solid #2e7d32;
+    border-radius:8px;
+    color:#1b5e20;
+    font-weight:bold;
+}
 
-        a:hover{
-            /* CAMBIO DE COLOR: un poco más oscuro al pasar el cursor */
-            background:#1b5e20;
-        }
+#mensaje{
+    color:#2e7d32;
+    font-size:18px;
+    font-weight:bold;
+}
 
-        @media(max-width:768px){
+@media(max-width:768px){
+    table{
+        width:100%;
+        font-size:12px;
+    }
 
-            table{
-                width:100%;
-                font-size:12px;
-            }
-
-            h1{
-                font-size:24px;
-            }
-
-        }
-
-    </style>
-
+    h1{
+        font-size:24px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <center>
-        <h1>🛒 Menú de Productos (Próximos a vencer)</h1>
-    </center>
+<center>
+<h1>🛒 Menú de Productos Próximos a Vencer</h1>
+</center>
 
-    <table border="1" width="75%" align="center" cellpadding="6">
+<center>
+<label><b>Filtrar por vencimiento:</b></label>
 
-        <tr>
-            <th>Producto</th>
-            <th>Descripción</th>
-            <th>Precio Original</th>
-            <th>Precio Descuento</th>
-            <th>Vence en</th>
-            <th>Acción</th>
-        </tr>
+<select id="filtroDias" onchange="filtrarProductos()">
+    <option value="todos">Todos</option>
+    <option value="5">5 días o menos</option>
+    <option value="10">10 días o menos</option>
+    <option value="20">20 días o menos</option>
+</select>
+</center>
 
-        <tr>
-            <td>Leche Gloria 1L</td>
-            <td>Lácteo entero</td>
-            <td>S/ 4.50</td>
-            <td>S/ 2.50</td>
-            <td>3 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<br>
 
-        <tr>
-            <td>Pan de molde</td>
-            <td>Pan integral</td>
-            <td>S/ 3.50</td>
-            <td>S/ 1.80</td>
-            <td>2 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<table border="1" width="75%" align="center" cellpadding="6">
 
-        <tr>
-            <td>Yogurt Fresa</td>
-            <td>Bebida láctea</td>
-            <td>S/ 2.50</td>
-            <td>S/ 1.20</td>
-            <td>4 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <th>Producto</th>
+    <th>Descripción</th>
+    <th>Precio Original</th>
+    <th>Precio Descuento</th>
+    <th>Vence en</th>
+    <th>Acción</th>
+</tr>
 
-        <tr>
-            <td>Queso fresco</td>
-            <td>Producto refrigerado</td>
-            <td>S/ 6.00</td>
-            <td>S/ 3.50</td>
-            <td>2 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Leche Gloria 1L</td>
+    <td>Lácteo entero</td>
+    <td>S/ 4.50</td>
+    <td>S/ 2.50</td>
+    <td>3 días</td>
+    <td><button onclick="agregarProducto('Leche Gloria 1L')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Atún Florida</td>
-            <td>Conserva en lata</td>
-            <td>S/ 5.00</td>
-            <td>S/ 3.20</td>
-            <td>10 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Pan de molde</td>
+    <td>Pan integral</td>
+    <td>S/ 3.50</td>
+    <td>S/ 1.80</td>
+    <td>2 días</td>
+    <td><button onclick="agregarProducto('Pan de molde')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Aceite Primor 1L</td>
-            <td>Aceite vegetal</td>
-            <td>S/ 9.50</td>
-            <td>S/ 6.80</td>
-            <td>15 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Yogurt Fresa</td>
+    <td>Bebida láctea</td>
+    <td>S/ 2.50</td>
+    <td>S/ 1.20</td>
+    <td>4 días</td>
+    <td><button onclick="agregarProducto('Yogurt Fresa')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Fideos</td>
-            <td>Pasta larga</td>
-            <td>S/ 3.20</td>
-            <td>S/ 2.00</td>
-            <td>20 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Queso fresco</td>
+    <td>Producto refrigerado</td>
+    <td>S/ 6.00</td>
+    <td>S/ 3.50</td>
+    <td>2 días</td>
+    <td><button onclick="agregarProducto('Queso fresco')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Pan Rapiditos</td>
-            <td>Pan tipo tortilla</td>
-            <td>S/ 6.50</td>
-            <td>S/ 4.00</td>
-            <td>5 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Atún Florida</td>
+    <td>Conserva en lata</td>
+    <td>S/ 5.00</td>
+    <td>S/ 3.20</td>
+    <td>10 días</td>
+    <td><button onclick="agregarProducto('Atún Florida')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Shampoo Head & Shoulders</td>
-            <td>Cuidado personal</td>
-            <td>S/ 18.00</td>
-            <td>S/ 12.00</td>
-            <td>30 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Aceite Primor 1L</td>
+    <td>Aceite vegetal</td>
+    <td>S/ 9.50</td>
+    <td>S/ 6.80</td>
+    <td>15 días</td>
+    <td><button onclick="agregarProducto('Aceite Primor 1L')">Añadir</button></td>
+</tr>
 
-        <tr>
-            <td>Pizza para hornear</td>
-            <td>Producto congelado</td>
-            <td>S/ 12.00</td>
-            <td>S/ 8.50</td>
-            <td>7 días</td>
-            <td><button>Añadir</button></td>
-        </tr>
+<tr>
+    <td>Fideos</td>
+    <td>Pasta larga</td>
+    <td>S/ 3.20</td>
+    <td>S/ 2.00</td>
+    <td>20 días</td>
+    <td><button onclick="agregarProducto('Fideos')">Añadir</button></td>
+</tr>
 
-    </table>
+<tr>
+    <td>Pan Rapiditos</td>
+    <td>Pan tipo tortilla</td>
+    <td>S/ 6.50</td>
+    <td>S/ 4.00</td>
+    <td>5 días</td>
+    <td><button onclick="agregarProducto('Pan Rapiditos')">Añadir</button></td>
+</tr>
 
-    <br>
+<tr>
+    <td>Shampoo Head & Shoulders</td>
+    <td>Cuidado personal</td>
+    <td>S/ 18.00</td>
+    <td>S/ 12.00</td>
+    <td>30 días</td>
+    <td><button onclick="agregarProducto('Shampoo Head & Shoulders')">Añadir</button></td>
+</tr>
 
-    <center>
-        <a href="pedidos.html">🛒 Ver Pedidos</a>
-    </center>
+<tr>
+    <td>Pizza para hornear</td>
+    <td>Producto congelado</td>
+    <td>S/ 12.00</td>
+    <td>S/ 8.50</td>
+    <td>7 días</td>
+    <td><button onclick="agregarProducto('Pizza para hornear')">Añadir</button></td>
+</tr>
+
+</table>
+
+<br>
+
+<center>
+
+<button onclick="mostrarCantidad()">Ver cantidad agregada</button>
+
+<p id="mensaje"></p>
+
+<br>
+
+<a href="pedidos.html">🛒 Ver Pedidos</a>
+
+</center>
+
+<script>
+
+let carrito = 0;
+
+const filas = document.querySelectorAll("table tr");
+
+function agregarProducto(producto){
+
+    carrito++;
+
+    document.getElementById("mensaje").innerHTML =
+    "Producto agregado: <b>" + producto +
+    "</b><br>Total de productos: <b>" + carrito + "</b>";
+
+}
+
+function mostrarCantidad(){
+
+    document.getElementById("mensaje").innerHTML =
+    "Productos agregados al carrito: <b>" + carrito + "</b>";
+
+}
+
+function filtrarProductos(){
+
+    let opcion = document.getElementById("filtroDias").value;
+
+    for(let i=1;i<filas.length;i++){
+
+        let texto = filas[i].cells[4].innerText;
+
+        let dias = parseInt(texto);
+
+        if(opcion=="todos"){
+
+            filas[i].style.display="";
+
+        }
+        else if(dias<=parseInt(opcion)){
+
+            filas[i].style.display="";
+
+        }
+        else{
+
+            filas[i].style.display="none";
+
+        }
+
+    }
+
+}
+
+</script>
 
 </body>
-
 </html>
