@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ofertas de la Semana - Supermercado </title>
+    <title>Ofertas de la Semana - Supermercado</title>
     <style>
         /* Paleta de colores basada en Verde */
         :root {
@@ -13,6 +13,9 @@
             --gris-fondo: #f5f5f5;
             --blanco: #ffffff;
             --texto: #333333;
+            --alerta-naranja: #ef6c00;
+            --alerta-rojo: #c62828;
+            --gris-deshabilitado: #b0bec5;
         }
 
         body {
@@ -26,23 +29,40 @@
             min-height: 100vh;
         }
 
+        /* Cabecera Responsiva con Flexbox */
         header {
             background-color: var(--verde-principal);
             color: var(--blanco);
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column; /* Apilado vertical en móviles */
+            align-items: center;
+            gap: 10px;
         }
 
         h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 20px; /* Tamaño controlado para celulares */
+            width: 100%;
+        }
+
+        /* Indicador de Carrito Adaptativo */
+        .carrito-badge {
+            background-color: var(--alerta-naranja);
+            color: var(--blanco);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
         }
 
         main {
             padding: 15px;
             max-width: 800px;
             margin: 0 auto;
-            flex: 1; /* Empuja el footer hacia abajo */
+            flex: 1;
             width: 100%;
             box-sizing: border-box;
         }
@@ -71,7 +91,7 @@
         /* Contenedor de Tarjetas de Productos */
         .contenedor-ofertas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -80,18 +100,28 @@
             background-color: var(--blanco);
             border: 1px solid #dddddd;
             border-radius: 8px;
-            padding: 12px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tarjeta-producto:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .tarjeta-producto h3 {
             font-size: 16px;
             margin: 10px 0 5px 0;
+            min-height: 38px; 
         }
 
         .categoria-etiqueta {
-            display: inline-block;
+            align-self: center;
             background-color: var(--verde-claro);
             color: var(--verde-oscuro);
             font-size: 11px;
@@ -124,10 +154,17 @@
             cursor: pointer;
             font-size: 14px;
             width: 100%;
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
 
         button:hover {
             background-color: var(--verde-oscuro);
+        }
+
+        button:disabled {
+            background-color: var(--gris-deshabilitado);
+            cursor: not-allowed;
         }
 
         /* Tabla de Disponibilidad */
@@ -163,6 +200,11 @@
             color: var(--blanco);
         }
 
+        /* Clases de Estado para la Tabla */
+        .disponible { color: var(--verde-principal); font-weight: bold; }
+        .ultimas-unidades { color: var(--alerta-naranja); font-weight: bold; }
+        .agotado { color: var(--alerta-rojo); font-weight: bold; }
+
         /* Alerta de éxito */
         .alerta-exito {
             background-color: #d4edda;
@@ -172,9 +214,10 @@
             margin-bottom: 15px;
             text-align: center;
             display: none;
+            font-weight: bold;
         }
 
-        /* PIE DE PÁGINA (Añadido) */
+        /* PIE DE PÁGINA */
         footer {
             background-color: var(--verde-oscuro);
             color: var(--blanco);
@@ -183,12 +226,26 @@
             font-size: 13px;
             margin-top: auto;
         }
+
+        /* Media Query para pantallas de Computadoras o Tablets */
+        @media (min-width: 600px) {
+            header {
+                flex-direction: row; /* Distribución en línea en PC */
+                justify-content: space-between;
+                padding: 20px;
+            }
+            h1 {
+                text-align: left;
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Supermercado  - Ofertas Especiales</h1>
+        <h1>Supermercado - Ofertas Especiales</h1>
+        <div class="carrito-badge">🛒 Carrito: <span id="contadorCarrito">0</span></div>
     </header>
 
     <main>
@@ -204,8 +261,7 @@
             </select>
         </div>
 
-        <div id="contenedorOfertas" class="contenedor-ofertas">
-            </div>
+        <div id="contenedorOfertas" class="contenedor-ofertas"></div>
 
         <div class="tabla-seccion">
             <h2>Disponibilidad en Tienda</h2>
@@ -217,28 +273,31 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpoTabla">
-                    </tbody>
+                <tbody id="cuerpoTabla"></tbody>
             </table>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Supermercado . Todos los derechos reservados. Proyecto Académico UTP.</p>
+        <p>&copy; 2026 Supermercado. Todos los derechos reservados. Proyecto Académico UTP.</p>
     </footer>
 
     <script>
-        // Arreglo de objetos con los datos de los productos
+        // Banco de datos global del sistema
         const productos = [
             { id: 1, nombre: "Arroz Extra 1kg", categoria: "Abarrotes", precioAntes: "S/ 4.50", precioAhora: "S/ 3.80", stock: 45 },
             { id: 2, nombre: "Aceite Vegetal 1L", categoria: "Abarrotes", precioAntes: "S/ 8.90", precioAhora: "S/ 7.20", stock: 12 },
             { id: 3, nombre: "Plátano de Seda kg", categoria: "Frutas y Verduras", precioAntes: "S/ 3.20", precioAhora: "S/ 2.50", stock: 60 },
-            { id: 4, nombre: "Manzana Delicia kg", categoria: "Frutas y Verduras", precioAntes: "S/ 5.00", precioAhora: "S/ 4.10", stock: 8 },
+            { id: 4, nombre: "Manzana Delicia kg", categoria: "Frutas y Verduras", precioAntes: "S/ 5.00", precioAhora: "S/ 4.10", stock: 2 }, 
             { id: 5, nombre: "Leche Evaporada", categoria: "Lácteos", precioAntes: "S/ 4.20", precioAhora: "S/ 3.60", stock: 30 },
             { id: 6, nombre: "Queso Fresco 500g", categoria: "Lácteos", precioAntes: "S/ 12.50", precioAhora: "S/ 10.90", stock: 15 }
         ];
 
-        // Función principal para mostrar las tarjetas y llenar la tabla
+        // Estados globales de la aplicación
+        let cantidadEnCarrito = 0;
+        let categoriaActual = "todos";
+
+        // Función encargada del renderizado dinámico de componentes en el DOM
         function cargarContenido(productosAMostrar) {
             const contenedor = document.getElementById("contenedorOfertas");
             const tabla = document.getElementById("cuerpoTabla");
@@ -247,7 +306,23 @@
             tabla.innerHTML = "";
 
             productosAMostrar.forEach(prod => {
-                // Tarjeta HTML dinámicamente
+                // Evaluación del stock para inyección de clases CSS de estado
+                let estadoStock = "Disponible";
+                let claseEstado = "disponible";
+                let botonAtributos = "";
+                let botonTexto = "Agregar";
+
+                if (prod.stock === 0) {
+                    estadoStock = "Agotado";
+                    claseEstado = "agotado";
+                    botonAtributos = "disabled";
+                    botonTexto = "Agotado";
+                } else if (prod.stock <= 10) {
+                    estadoStock = "¡Últimas unidades!";
+                    claseEstado = "ultimas-unidades";
+                }
+
+                // Generación dinámica de Tarjetas
                 const tarjeta = document.createElement("div");
                 tarjeta.className = "tarjeta-producto";
                 tarjeta.innerHTML = `
@@ -255,47 +330,65 @@
                     <h3>${prod.nombre}</h3>
                     <p class="precio-antes">${prod.precioAntes}</p>
                     <p class="precio-ahora">${prod.precioAhora}</p>
-                    <button onclick="agregarAlCarrito('${prod.nombre}')">Agregar</button>
+                    <button ${botonAtributos} onclick="agregarAlCarrito(${prod.id})">${botonTexto}</button>
                 `;
                 contenedor.appendChild(tarjeta);
 
-                // Fila de Tabla dinámicamente
+                // Generación dinámica de Filas de la Tabla
                 const fila = document.createElement("tr");
-                const estadoStock = prod.stock > 10 ? "Disponible" : "¡Últimas unidades!";
                 fila.innerHTML = `
                     <td>${prod.nombre}</td>
                     <td>${prod.stock} unids.</td>
-                    <td style="color: ${prod.stock > 10 ? 'green' : 'orange'}; font-weight: bold;">${estadoStock}</td>
+                    <td class="${claseEstado}">${estadoStock}</td>
                 `;
                 tabla.appendChild(fila);
             });
         }
 
-        // Función para filtrar según la categoría seleccionada
+        // Evento que captura el cambio en el elemento select
         function filtrarProductos() {
-            const seleccion = document.getElementById("filtroCategoria").value;
-            if (seleccion === "todos") {
+            categoriaActual = document.getElementById("filtroCategoria").value;
+            aplicarRenderizado();
+        }
+
+        // Filtra y despliega los elementos de forma persistente
+        function aplicarRenderizado() {
+            if (categoriaActual === "todos") {
                 cargarContenido(productos);
             } else {
-                const productosFiltrados = productos.filter(p => p.categoria === seleccion);
+                const productosFiltrados = productos.filter(p => p.categoria === categoriaActual);
                 cargarContenido(productosFiltrados);
             }
         }
 
-        // Función interactiva del botón
-        function agregarAlCarrito(nombreProducto) {
-            const alerta = document.getElementById("alerta");
-            alerta.innerText = `¡Se agregó ${nombreProducto} al carrito de compras!`;
-            alerta.style.display = "block";
+        // Lógica de negocio interactiva de la aplicación
+        function agregarAlCarrito(idProducto) {
+            const productoSeleccionado = productos.find(p => p.id === idProducto);
 
-            setTimeout(() => {
-                alerta.style.display = "none";
-            }, 3000);
+            if (productoSeleccionado && productoSeleccionado.stock > 0) {
+                productoSeleccionado.stock--;
+                cantidadEnCarrito++;
+
+                // Actualiza el indicador del carrito
+                document.getElementById("contadorCarrito").innerText = cantidadEnCarrito;
+
+                // Lanzamiento del banner de notificación
+                const alerta = document.getElementById("alerta");
+                alerta.innerText = `¡Se agregó ${productoSeleccionado.nombre} al carrito de compras!`;
+                alerta.style.display = "block";
+
+                // Actualización reactiva de la UI
+                aplicarRenderizado();
+
+                setTimeout(() => {
+                    alerta.style.display = "none";
+                }, 3000);
+            }
         }
 
-        // Ejecutar la carga inicial al abrir el archivo
+        // Inicialización del sistema
         window.onload = function() {
-            cargarContenido(productos);
+            aplicarRenderizado();
         };
     </script>
 </body>
