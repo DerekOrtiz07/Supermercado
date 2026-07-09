@@ -1,1494 +1,1100 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Comida | Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<title>Eco Comida | Inicio</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    <style>
+        /* ==========================
+   TOAST NOTIFICATION MODERNO
+========================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 30px; /* Aparece abajo a la izquierda */
+    background: white;
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-left: 6px solid #FFD54F; /* Detalle amarillo de tu marca */
+    z-index: 10000;
+    display: block;
+    
+    /* Estado inicial: Oculto abajo y transparente */
+    opacity: 0;
+    transform: translateY(40px);
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-html{
-    scroll-behavior:smooth;
+/* Clase que activa el JS para mostrarlo */
+.toast.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
 }
 
-body{
-    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
-    background:linear-gradient(180deg,#F5FAF6 0%, #EEF7F1 40%, #E7F5EA 100%);
-    color:#333;
+.toast-contenido {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/*==========================
-HEADER
+.toast-icono {
+    font-size: 24px;
+    color: #2e7d32; /* Verde Eco */
+    animation: campana 2s infinite ease-in-out;
+}
+
+.toast-texto strong {
+    color: #1b5e20;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.toast-texto p {
+    font-size: 14px;
+    color: #666;
+}
+
+.toast-cerrar {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 5px;
+    margin-left: 10px;
+}
+
+.toast-cerrar:hover {
+    color: #333;
+}
+
+/* Animación sutil para el icono de campana */
+@keyframes campana {
+    0%, 100% { transform: rotate(0); }
+    10%, 30% { transform: rotate(15deg); }
+    20%, 40% { transform: rotate(-15deg); }
+    50% { transform: rotate(0); }
+}
+
+/* Modo Oscuro para el Toast */
+.dark #welcome-toast {
+    background: #1e1e1e;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.dark .toast-texto p {
+    color: #aaa;
+}
+/* ==========================
+   RESETS Y BASES
 ===========================*/
-
-header{
-    position:relative;
-    background:linear-gradient(90deg,#0f3111,#1b5e20,#2e7d32);
-    color:white;
-    text-align:center;
-    padding:40px 20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.30);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.btn-login{
-    background:#00843D; /* Verde tipo Pantone 348 C */
-    color:#ffffff;
-    text-decoration:none;
-    padding:18px 38px;
-    border-radius:50px;
-    font-weight:700;
-    font-size:20px;
-    letter-spacing:.5px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    border:3px solid #ffffff;
-    box-shadow:0 10px 25px rgba(0,132,61,.45);
-    transition:all .35s ease;
+html {
+    scroll-behavior: smooth;
 }
 
-.btn-login:hover{
-    background:#00A651;
-    transform:translateY(-4px) scale(1.06);
-    box-shadow:0 15px 35px rgba(0,132,61,.60);
-    color:#ffffff;
+body {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    background: linear-gradient(180deg, #F5FAF6 0%, #EEF7F1 40%, #E7F5EA 100%);
+    color: #333;
+    transition: background 0.3s, color 0.3s;
 }
 
-.btn-login i{
-    font-size:22px;
-}
-.login-top{
-    position:absolute;
-    top:20px;
-    right:35px;
-    z-index:1000;
-}
-header img{
-    width:120px;
-    transition:.4s;
+/* ==========================
+   HEADER
+===========================*/
+header {
+    position: relative;
+    background: linear-gradient(90deg, #0f3111, #1b5e20, #2e7d32);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.30);
 }
 
-header img:hover{
-    transform:scale(1.08);
+.login-top {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-header h1{
-    margin-top:15px;
-    font-size:45px;
+.btn-login {
+    background: #00843D;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 10px 25px rgba(0,132,61,.45);
+    transition: all .35s ease;
 }
 
-header p{
-    margin-top:10px;
-    font-size:18px;
-}
-.hero{
-
-animation:entrada 1.2s ease;
-
+.btn-login:hover {
+    background: #00A651;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 15px 35px rgba(0,132,61,.60);
 }
 
-@keyframes entrada{
-
-from{
-
-opacity:0;
-
-transform:translateY(50px);
-
+.theme-toggle button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #FFD54F;
+    color: #1b5e20;
+    cursor: pointer;
+    font-size: 20px;
+    transition: .3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
 }
 
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
+.theme-toggle button:hover {
+    transform: rotate(180deg);
 }
 
+header img {
+    width: 120px;
+    transition: .4s;
 }
-/*==========================
-MENU HAMBURGUESA
+
+header img:hover {
+    transform: scale(1.08);
+}
+
+header h1 {
+    margin-top: 15px;
+    font-size: 45px;
+}
+
+header p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* ==========================
+   MENU HAMBURGUESA
+========================== */
+.menu-toggle {
+    display: none;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background: #FFD54F;
+    border: none;
+    color: #1b5e20;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    z-index: 1001;
+}
+
+/* ==========================
+   NAVEGACIÓN
+===========================*/
+nav {
+    width: 92%;
+    margin: 20px auto;
+    background: #1b5e20;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.20);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+nav a:hover {
+    background: #2e7d32;
+    color: #FFD54F;
+}
+
+/* ==========================
+   HERO
+===========================*/
+.hero {
+    width: 92%;
+    margin: 40px auto;
+    animation: entrada 1.2s ease;
+}
+
+.hero-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    background: linear-gradient(135deg, #1B5E20, #2E7D32, #43A047);
+    color: white;
+    border-radius: 25px;
+    padding: 60px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.25);
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-contenido::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: rgba(255,255,255,.08);
+    border-radius: 50%;
+    right: -120px;
+    top: -100px;
+}
+
+.hero-texto {
+    width: 55%;
+    z-index: 2;
+}
+
+.hero-texto h2 {
+    font-size: 50px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-texto p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.hero-botones {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-principal {
+    background: #FFD54F;
+    color: #1B5E20;
+    padding: 16px 35px;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.btn-principal:hover {
+    transform: scale(1.08);
+}
+
+.btn-secundario {
+    border: 2px solid white;
+    color: white;
+    padding: 16px 35px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.btn-secundario:hover {
+    background: white;
+    color: #1B5E20;
+}
+
+.hero-imagen {
+    width: 42%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-imagen::before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3), rgba(255,255,255,0));
+    z-index: 0;
+}
+
+.hero-imagen img {
+    width: 100%;
+    max-width: 430px;
+    position: relative;
+    z-index: 2;
+    border-radius: 25px;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,.35));
+    animation: flotar 4s ease-in-out infinite;
+}
+
+.hero-card1 {
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    background: white;
+    color: #1B5E20;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    z-index: 5;
+    animation: subir 3s infinite alternate;
+}
+
+.hero-card2 {
+    position: absolute;
+    bottom: 20px;
+    right: -20px;
+    background: #FFD54F;
+    color: #1B5E20;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    z-index: 5;
+    animation: bajar 3s infinite alternate;
+}
+
+.hero-card1 h3, .hero-card2 h3 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+/* ==========================
+   ANIMACIONES KINETICAS
+===========================*/
+@keyframes entrada {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes subir {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+@keyframes bajar {
+    from { transform: translateY(0); }
+    to { transform: translateY(10px); }
+}
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* ==========================
+   CONTENEDORES Y TARJETAS
+===========================*/
+.contenedor {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(0,0,0,.15);
+    border-top: 6px solid #2e7d32;
+}
+
+.card:hover {
+    transform: translateY(-12px) scale(1.05) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+
+.card i {
+    font-size: 50px;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+}
+
+.card p {
+    line-height: 1.8;
+}
+
+/* ==========================
+   ESTADÍSTICAS (SLIDER)
+========================== */
+.estadisticas {
+    width: 100%;
+    background: #1b5e20;
+    overflow: hidden;
+    padding: 35px 0;
+}
+
+.slider {
+    display: flex;
+    width: max-content;
+    animation: mover 22s linear infinite;
+}
+
+.slide {
+    min-width: 280px;
+    margin: 0 20px;
+    background: white;
+    color: #1b5e20;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
+    transition: .3s;
+}
+
+.slide:hover {
+    transform: scale(1.08);
+}
+
+.slide h2 {
+    font-size: 42px;
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.slide p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@keyframes mover {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ==========================
+   BENEFICIOS Y PROCESOS
+========================== */
+.beneficios, .proceso, .categorias, .testimonios {
+    width: 90%;
+    margin: auto;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.beneficios h2, .proceso h2, .categorias h2, .testimonios h2 {
+    color: #1b5e20;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.beneficios-grid, .pasos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.beneficio, .paso {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.15);
+}
+
+.beneficio:hover {
+    transform: translateY(-10px) !important;
+}
+
+.beneficio i {
+    font-size: 50px;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.beneficio h3, .paso h3 {
+    color: #1b5e20;
+    margin-bottom: 10px;
+}
+
+.paso h1 {
+    font-size: 60px;
+    color: #2e7d32;
+}
+
+.testimonios h4 {
+    color: #FFD54F;
+    font-size: 22px;
+    margin: 15px 0;
+}
+
+/* ==========================
+   EXTRA BOXES
+===========================*/
+.extra {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.extra-box {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    border-left: 8px solid #2e7d32;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.15);
+}
+
+.extra-box h2 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+}
+
+.extra-box p, .extra-box ul {
+    line-height: 1.8;
+}
+
+.extra-box ul {
+    list-style: none;
+}
+
+/* ==========================
+   FOOTER
+===========================*/
+footer {
+    background: #0f3111;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    line-height: 2;
+}
+
+footer i {
+    color: #FFD54F;
+    margin: 0 5px;
+}
+
+/* ==========================
+   BOTON ARRIBA EN CSS NATIVO
 ==========================*/
-
-.menu-toggle{
-    display:none;
-    position:absolute;
-    left:20px;
-    top:20px;
-    background:#FFD54F;
-    border:none;
-    color:#1b5e20;
-    width:50px;
-    height:50px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:24px;
-    box-shadow:0 5px 15px rgba(0,0,0,.3);
-}
-.card:hover{
-
-transform:translateY(-12px) scale(1.05);
-
-box-shadow:0 20px 40px rgba(0,0,0,.25);
-
-}
-.theme-toggle{
-    position:absolute;
-    top:15px;
-    right:190px;
-    z-index:1000;
+#btnArriba {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: #2E7D32;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999;
 }
 
-.theme-toggle button{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    border:none;
-    background:#FFD54F;
-    color:#1B5E20;
-    font-size:18px;
-    cursor:pointer;
-    box-shadow:0 5px 15px rgba(0,0,0,.3);
-}
-}
+#btnArriba.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
 }
 
-.theme-toggle button{
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:50%;
-    background:#FFD54F;
-    color:#1b5e20;
-    cursor:pointer;
-    font-size:20px;
-    transition:.3s;
-}
-
-.theme-toggle button:hover{
-    transform:rotate(180deg);
-}
-/*==========================
-MENU
-===========================*/
-
-nav{
-    width:92%;
-    margin:20px auto;
-    background:#1b5e20;
-    border-radius:12px;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-    padding:16px;
-    box-shadow:0 5px 15px rgba(0,0,0,.20);
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    padding:12px 18px;
-    border-radius:8px;
-    transition:.3s;
-}
-
-nav a:hover{
-    background:#2e7d32;
-    color:#FFD54F;
-}
-
-/*==========================
-HERO
-===========================*/
-
-.hero{
-    width:92%;
-    margin:40px auto;
-}
-
-.hero-contenido{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:50px;
-
-    background:linear-gradient(135deg,#1B5E20,#2E7D32,#43A047);
-
-    color:white;
-
-    border-radius:25px;
-
-    padding:60px;
-
-    box-shadow:0 20px 45px rgba(0,0,0,.25);
-
-    overflow:hidden;
-
-    position:relative;
-
-}
-
-.hero-contenido::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:350px;
-
-    height:350px;
-
-    background:rgba(255,255,255,.08);
-
-    border-radius:50%;
-
-    right:-120px;
-
-    top:-100px;
-
-}
-
-.hero-texto{
-
-    width:55%;
-
-    z-index:2;
-
-}
-
-.hero-texto h2{
-
-    font-size:50px;
-
-    margin-bottom:20px;
-
-    line-height:1.2;
-
-}
-
-.hero-texto p{
-
-    font-size:18px;
-
-    line-height:1.8;
-
-    margin-bottom:30px;
-
-}
-
-.hero-botones{
-
-    display:flex;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-}
-
-.btn-principal{
-
-    background:#FFD54F;
-
-    color:#1B5E20;
-
-    padding:16px 35px;
-
-    text-decoration:none;
-
-    border-radius:40px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    transition:.3s;
-
-}
-
-.btn-principal:hover{
-
-    transform:scale(1.08);
-
-}
-
-.btn-secundario{
-
-    border:2px solid white;
-
-    color:white;
-
-    padding:16px 35px;
-
-    border-radius:40px;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-    transition:.3s;
-
-}
-
-.btn-secundario:hover{
-
-    background:white;
-
-    color:#1B5E20;
-
-}
-
-.hero-imagen{
-    width:42%;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* Círculo de fondo */
-
-.hero-imagen::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:480px;
-    height:480px;
-
-    border-radius:50%;
-
-    background:radial-gradient(circle,#ffffff55,#ffffff10);
-
-    z-index:0;
-
-}
-
-/* Imagen */
-
-.hero-imagen img{
-
-    width:100%;
-    max-width:430px;
-
-    position:relative;
-    z-index:2;
-
-    border-radius:25px;
-
-    filter:drop-shadow(0 20px 40px rgba(0,0,0,.35));
-
-    animation:flotar 4s ease-in-out infinite;
-
-}
-
-/* Tarjeta superior */
-
-.hero-card1{
-
-    position:absolute;
-
-    top:20px;
-    left:-20px;
-
-    background:white;
-
-    color:#1B5E20;
-
-    padding:15px 20px;
-
-    border-radius:15px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-
-    z-index:5;
-
-    animation:subir 3s infinite alternate;
-
-}
-
-/* Tarjeta inferior */
-
-.hero-card2{
-
-    position:absolute;
-
-    bottom:20px;
-    right:-20px;
-
-    background:#FFD54F;
-
-    color:#1B5E20;
-
-    padding:15px 20px;
-
-    border-radius:15px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-
-    z-index:5;
-
-    animation:bajar 3s infinite alternate;
-
-}
-
-.hero-card1 h3,
-.hero-card2 h3{
-
-    font-size:28px;
-    margin-bottom:5px;
-
-}
-
-@keyframes subir{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-10px);
-}
-
-}
-
-@keyframes bajar{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(10px);
-}
-
-}
-}
-
-@keyframes flotar{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-12px);
-
-}
-
-}
-
-@media(max-width:900px){
-
-.hero-contenido{
-
-flex-direction:column;
-
-text-align:center;
-
-}
-
-.hero-texto,
-
-.hero-imagen{
-
-width:100%;
-
-}
-
-.hero-botones{
-
-justify-content:center;
-
-}
-
-}
-/*==========================
-TARJETAS
-===========================*/
-
-.contenedor{
-    width:90%;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-    padding-bottom:40px;
-}
-
-.card{
-    background:white;
-    border-radius:18px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-    border-top:6px solid #2e7d32;
-    transition:.4s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-}
-
-.card i{
-    font-size:50px;
-    color:#2e7d32;
-    margin-bottom:15px;
-}
-
-.card h3{
-    color:#1b5e20;
-    margin-bottom:15px;
-}
-
-.card p{
-    line-height:1.8;
-}
-
-/*==========================
-EXTRA
-===========================*/
-
-.extra{
-    width:90%;
-    margin:30px auto;
-    display:flex;
-    gap:25px;
-    flex-wrap:wrap;
-}
-
-.extra-box{
-    flex:1;
-    min-width:300px;
-    background:white;
-    border-left:8px solid #2e7d32;
-    border-radius:15px;
-    padding:30px;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
-
-.extra-box h2{
-    color:#1b5e20;
-    margin-bottom:15px;
-}
-
-.extra-box p{
-    line-height:1.8;
-}
-
-
-/*==========================
-FOOTER
-===========================*/
-
-footer{
-    background:#0f3111;
-    color:white;
-    text-align:center;
-    padding:30px;
-    line-height:2;
-}
-
-footer i{
-    color:#FFD54F;
-    margin:0 5px;
-}
-
-/*==========================
-RESPONSIVE
-===========================*/
-
-@media(max-width:768px){
-
-.login-top{
-    position:static;
-    margin-bottom:20px;
-}
-
-header h1{
-    font-size:32px;
-}
-
-.hero-contenido h2{
-    font-size:30px;
-}
-
-nav{
-    flex-direction:column;
-    align-items:center;
-}
-
+#btnArriba:hover {
+    background: #43A047;
 }
 
 /* ==========================
-   ESTADÍSTICAS
+   ESTADOS DE ACCESO DE RENDIMIENTO NATIVO
 ========================== */
-.estadisticas{
-    width:100%;
-    background:#1b5e20;
-    overflow:hidden;
-    padding:35px 0;
+.reveal-init {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
 }
 
-.slider{
-    display:flex;
-    width:max-content;
-    animation:mover 22s linear infinite;
-}
-
-.slide{
-    min-width:280px;
-    margin:0 20px;
-    background:white;
-    color:#1b5e20;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 10px 20px rgba(0,0,0,.25);
-    transition:.3s;
-}
-
-.slide:hover{
-    transform:scale(1.08);
-}
-
-.slide h2{
-    font-size:42px;
-    color:#2e7d32;
-    margin-bottom:10px;
-}
-
-.slide p{
-    font-size:18px;
-    font-weight:bold;
-}
-
-@keyframes mover{
-
-0%{
-transform:translateX(0);
-}
-
-100%{
-transform:translateX(-50%);
-}
-
+.reveal-init.aparecer {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ==========================
-   BENEFICIOS
-========================== */
-
-.beneficios{
-    width:90%;
-    margin:auto;
-    padding:60px 0;
-    text-align:center;
-}
-
-.beneficios h2{
-    color:#1b5e20;
-    font-size:40px;
-    margin-bottom:40px;
-}
-
-.beneficios-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.beneficio{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-    transition:.3s;
-}
-
-.beneficio:hover{
-    transform:translateY(-10px);
-}
-
-.beneficio i{
-    font-size:50px;
-    color:#2e7d32;
-    margin-bottom:15px;
-}
-
-.beneficio h3{
-    color:#1b5e20;
-    margin-bottom:10px;
-}
-
-/* ==========================
-   PROCESO
-========================== */
-
-.proceso{
-    width:90%;
-    margin:auto;
-    padding:60px 0;
-    text-align:center;
-}
-
-.proceso h2{
-    color:#1b5e20;
-    font-size:40px;
-    margin-bottom:40px;
-}
-
-.pasos{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.paso{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
-
-.paso h1{
-    font-size:60px;
-    color:#2e7d32;
-}
-
-.paso h3{
-    margin:15px 0;
-    color:#1b5e20;
-}
-
-/* ==========================
-   CATEGORÍAS
-========================== */
-
-.categorias{
-    width:90%;
-    margin:auto;
-    padding:60px 0;
-    text-align:center;
-}
-
-.categorias h2{
-    color:#1b5e20;
-    font-size:40px;
-    margin-bottom:40px;
-}
-
-/* ==========================
-   TESTIMONIOS
-========================== */
-
-.testimonios{
-    width:90%;
-    margin:auto;
-    padding:60px 0;
-    text-align:center;
-}
-
-.testimonios h2{
-    color:#1b5e20;
-    font-size:40px;
-    margin-bottom:40px;
-}
-
-.testimonios .card{
-    background:#fff;
-}
-
-.testimonios h4{
-    color:#FFD54F;
-    font-size:22px;
-    margin:15px 0;
-}
-
-/* ==========================
-   RESPONSIVE
-========================== */
-
-@media(max-width:768px){
-
-.estadisticas{
-    grid-template-columns:1fr;
-}
-
-.dato h2{
-    font-size:35px;
-}
-
-.beneficios h2,
-.proceso h2,
-.categorias h2,
-.testimonios h2{
-    font-size:30px;
-}
-.menu-toggle{
-    display:block;
-}
-
-nav{
-    display:none;
-}
-
-nav.activo{
-    display:flex;
-}
-/*==========================
-BOTON ARRIBA
+   MODO OSCURO COMODINES
 ==========================*/
-
-#btnArriba{
-
-position:fixed;
-
-bottom:30px;
-
-right:30px;
-
-width:60px;
-
-height:60px;
-
-border:none;
-
-border-radius:50%;
-
-background:#2E7D32;
-
-color:white;
-
-font-size:25px;
-
-cursor:pointer;
-
-display:none;
-
-box-shadow:0 5px 15px rgba(0,0,0,.3);
-
-transition:.3s;
-
-z-index:9999;
-
+.dark {
+    background: #121212;
+    color: #e0e0e0;
 }
 
-#btnArriba:hover{
-
-transform:scale(1.1);
-
-background:#43A047;
-
+.dark header { background: #0a1f0b; }
+.dark nav { background: #1f1f1f; }
+.dark .card, .dark .beneficio, .dark .paso, .dark .extra-box, .dark .slide {
+    background: #1e1e1e;
+    color: white;
 }
-/*==========================
-MODO OSCURO
-==========================*/
-
-.dark{
-
-background:#121212;
-
-color:white;
-
+.dark .card h3, .dark .beneficio h3, .dark .paso h3, .dark .extra-box h2, .dark .beneficios h2, .dark .proceso h2, .dark .categorias h2, .dark .testimonios h2 {
+    color: #81c784;
 }
+.dark footer { background: #000; }
 
-.dark header{
-
-background:#000;
-
-}
-
-.dark nav{
-
-background:#222;
-
-}
-
-.dark .card,
-.dark .beneficio,
-.dark .paso,
-.dark .extra-box{
-
-background:#222;
-
-color:white;
-
+/* ==========================
+   RESPONSIVE (MEDIA QUERIES)
+===========================*/
+@media(max-width: 900px) {
+    .hero-contenido {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .hero-texto, .hero-imagen {
+        width: 100%;
+    }
+    .hero-botones {
+        justify-content: center;
+    }
+    .hero-card1, .hero-card2 {
+        position: static;
+        margin: 10px auto;
+        display: inline-block;
+    }
 }
 
-.dark footer{
-
-background:#000;
-
+@media(max-width: 768px) {
+    .login-top {
+        position: static;
+        margin-top: 15px;
+        justify-content: center;
+    }
+    header h1 { font-size: 32px; }
+    .hero-texto h2 { font-size: 30px; }
+    .menu-toggle { display: block; }
+    
+    nav {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    nav.activo {
+        display: flex;
+    }
+    .beneficios h2, .proceso h2, .categorias h2, .testimonios h2 {
+        font-size: 30px;
+    }
 }
-}
-
 </style>
-
 </head>
 
 <body>
 
-<header>
-<button class="menu-toggle" id="menu-toggle">
-    <i class="fa-solid fa-bars"></i>
-</button>
-<div class="login-top">
-<a href="login.html" class="btn-login">
-<i class="fa-solid fa-user"></i> Ingresar
-</a>
-    <div class="theme-toggle">
-    <button id="modoOscuro">
-        <i class="fa-solid fa-moon"></i>
-    </button>
+    <header>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <div class="login-top">
+            <a href="login.html" class="btn-login">
+                <i class="fa-solid fa-user" aria-hidden="true"></i> Ingresar
+            </a>
+            <div class="theme-toggle">
+                <button id="modoOscuro" aria-label="Alternar modo oscuro o claro">
+                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <img src="img/logo.png" alt="Logotipo oficial de Eco Comida">
+        <h1><i class="fa-solid fa-leaf" aria-hidden="true"></i> SuperMercado</h1>
+        <p>Comida con descuento • Ayudando al planeta</p>
+    </header>
+
+    <nav id="navbar" aria-label="Navegación principal">
+        <a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Inicio</a>
+        <a href="menu.html"><i class="fa-solid fa-utensils" aria-hidden="true"></i> Menú</a>
+        <a href="pedidos.html"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Pedidos</a>
+        <a href="ofertas.html"><i class="fa-solid fa-tags" aria-hidden="true"></i> Ofertas</a>
+        <a href="form_pedido.html"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Pedido</a>
+    </nav>
+
+    <main> <section class="hero">
+            <div class="hero-contenido">
+                <div class="hero-texto">
+                    <h2>🥬 Compra Inteligente, Ahorra Más y Cuida el Planeta</h2>
+                    <p>En <strong>SuperMercado</strong> encontrarás productos frescos y de excelente calidad con descuentos exclusivos. Nuestra misión es reducir el desperdicio de alimentos mientras ofrecemos una experiencia de compra rápida, segura y responsable.</p>
+                    <div class="hero-botones">
+                        <a href="menu.html" class="btn-principal"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Comprar Ahora</a>
+                        <a href="ofertas.html" class="btn-secundario"><i class="fa-solid fa-tags" aria-hidden="true"></i> Ver Ofertas</a>
+                    </div>
+                    <br>
+                    <p>🚚 Envíos rápidos &nbsp;&nbsp;&nbsp; 💳 Pago Seguro &nbsp;&nbsp;&nbsp; 🌱 Compra Responsable</p>
+                </div>
+
+                <div class="hero-imagen">
+                    <div class="hero-card1">
+                        <h3>70%</h3>
+                        <p>Hasta de descuento</p>
+                    </div>
+                    <img src="img/hero.png" alt="Variedad de vegetales, frutas y hortalizas frescas de temporada">
+                    <div class="hero-card2">
+                        <h3>✓</h3>
+                        <p>Productos Frescos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="estadisticas" aria-label="Estadísticas de la plataforma">
+            <div class="slider">
+                <div class="slide"><h2>+5000</h2><p>Clientes Satisfechos</p></div>
+                <div class="slide"><h2>+150</h2><p>Supermercados Afiliados</p></div>
+                <div class="slide"><h2>+25000</h2><p>Productos Vendidos</p></div>
+                <div class="slide"><h2>98%</h2><p>Clientes Recurrentes</p></div>
+                <div class="slide"><h2>24/7</h2><p>Atención al Cliente</p></div>
+                <div class="slide"><h2>100%</h2><p>Pago Seguro</p></div>
+                <div class="slide"><h2>+5000</h2><p>Clientes Satisfechos</p></div>
+                <div class="slide"><h2>+150</h2><p>Supermercados Afiliados</p></div>
+                <div class="slide"><h2>+25000</h2><p>Productos Vendidos</p></div>
+                <div class="slide"><h2>98%</h2><p>Clientes Recurrentes</p></div>
+            </div>
+        </section>
+
+        <section class="beneficios">
+            <h2>Nuestros Beneficios</h2>
+            <div class="beneficios-grid">
+                <div class="beneficio">
+                    <i class="fa-solid fa-percent" aria-hidden="true"></i>
+                    <h3>Grandes Descuentos</h3>
+                    <p>Obtén promociones diarias de hasta el 70% en alimentos de excelente calidad.</p>
+                </div>
+                <div class="beneficio">
+                    <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+                    <h3>Cuidado del Medio Ambiente</h3>
+                    <p>Reducimos el desperdicio de alimentos fomentando un consumo responsable.</p>
+                </div>
+                <div class="beneficio">
+                    <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                    <h3>Pago Seguro</h3>
+                    <p>Aceptamos múltiples métodos de pago con total seguridad.</p>
+                </div>
+                <div class="beneficio">
+                    <i class="fa-solid fa-headset" aria-hidden="true"></i>
+                    <h3>Soporte 24/7</h3>
+                    <p>Nuestro equipo está disponible para ayudarte en cualquier momento.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="proceso">
+            <h2>¿Cómo Funciona?</h2>
+            <div class="pasos">
+                <div class="paso"><h1>1</h1><h3>Explora</h3><p>Busca los productos disponibles con descuentos.</p></div>
+                <div class="paso"><h1>2</h1><h3>Compra</h3><p>Selecciona tus productos favoritos.</p></div>
+                <div class="paso"><h1>3</h1><h3>Recibe</h3><p>Recibe tu pedido de manera rápida y segura.</p></div>
+            </div>
+        </section>
+
+        <section class="categorias">
+            <h2>Categorías Disponibles</h2>
+            <div class="contenedor">
+                <div class="card">
+                    <i class="fa-solid fa-apple-whole" aria-hidden="true"></i>
+                    <h3>Frutas</h3>
+                    <p>Frutas frescas con descuentos especiales.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-carrot" aria-hidden="true"></i>
+                    <h3>Verduras</h3>
+                    <p>Productos frescos seleccionados diariamente.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-bread-slice" aria-hidden="true"></i>
+                    <h3>Panadería</h3>
+                    <p>Pan y pasteles recién horneados.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-cheese" aria-hidden="true"></i>
+                    <h3>Lácteos</h3>
+                    <p>Leche, queso, yogurt y mucho más.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonios">
+            <h2>Lo que opinan nuestros clientes</h2>
+            <div class="contenedor">
+                <blockquote class="card">
+                    <p>"Excelente servicio, encontré productos de calidad a precios muy bajos."</p>
+                    <h4>★★★★★</h4>
+                    <cite>María López</cite>
+                </blockquote>
+                <blockquote class="card">
+                    <p>"Una plataforma muy útil para ahorrar dinero y ayudar al planeta."</p>
+                    <h4>★★★★★</h4>
+                    <cite>Carlos Ramos</cite>
+                </blockquote>
+                <blockquote class="card">
+                    <p>"El proceso de compra fue rápido y la entrega llegó a tiempo."</p>
+                    <h4>★★★★★</h4>
+                    <cite>Ana Torres</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="extra">
+            <div class="extra-box">
+                <h2>¿Quiénes Somos?</h2>
+                <p>Somos una plataforma comprometida con el cuidado del medio ambiente, ofreciendo alimentos de calidad a precios accesibles para beneficiar tanto a consumidores como a comercios.</p>
+                <br>
+                <h3>Nuestra Visión</h3>
+                <p>Ser la plataforma líder en Latinoamérica en la comercialización de alimentos con descuento, promoviendo un modelo de consumo responsable que contribuya al desarrollo sostenible.</p>
+            </div>
+            <div class="extra-box">
+                <h2>Nuestros Valores</h2>
+                <ul>
+                    <li>✔ Responsabilidad Social</li>
+                    <li>✔ Honestidad</li>
+                    <li>✔ Innovación</li>
+                    <li>✔ Compromiso Ambiental</li>
+                    <li>✔ Calidad de Servicio</li>
+                    <li>✔ Trabajo en Equipo</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><i class="fa-solid fa-envelope" aria-hidden="true"></i> contacto@SuperMercado.com</p>
+        <p>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar nuestro Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar nuestro Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" aria-label="Contactarnos por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </p>
+        <p>© 2026 - Proyecto SuperMercado</p>
+    </footer>
+
+    <button id="btnArriba" aria-label="Volver al inicio de la página"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+<div id="welcome-toast" class="toast">
+    <div class="toast-contenido">
+        <i class="fa-solid fa-bell toast-icono"></i>
+        <div class="toast-texto">
+            <strong>👋 ¡Bienvenido!</strong>
+            <p>Aprovecha nuestras ofertas de hasta el 70% hoy.</p>
+        </div>
+        <button id="cerrar-toast" class="toast-cerrar" aria-label="Cerrar notificación">&times;</button>
+    </div>
 </div>
-</div>
-
-<img src="img/logo.png" alt="Logo Eco Comida">
-
-<h1>
-<i class="fa-solid fa-leaf"></i>
-SuperMercado
-</h1>
-
-<p>Comida con descuento • Ayudando al planeta</p>
-
-</header>
-
-<nav>
-
-<a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
-
-<a href="menu.html"><i class="fa-solid fa-utensils"></i> Menú</a>
-
-<a href="pedidos.html"><i class="fa-solid fa-cart-shopping"></i> Pedidos</a>
-
-<a href="ofertas.html"><i class="fa-solid fa-tags"></i> Ofertas</a>
-
-<a href="form_pedido.html"><i class="fa-solid fa-pen-to-square"></i> Pedido</a>
-
-</nav>
-
-<section class="hero">
-
-<section class="hero">
-
-<div class="hero-contenido">
-
-<div class="hero-texto">
-
-<h2>
-🥬 Compra Inteligente, Ahorra Más y Cuida el Planeta
-</h2>
-
-<p>
-
-En <strong>SuperMercado</strong> encontrarás productos frescos y de excelente calidad con descuentos exclusivos. Nuestra misión es reducir el desperdicio de alimentos mientras ofrecemos una experiencia de compra rápida, segura y responsable.
-
-</p>
-
-<div class="hero-botones">
-
-<a href="menu.html" class="btn-principal">
-<i class="fa-solid fa-cart-shopping"></i>
-Comprar Ahora
-</a>
-
-<a href="ofertas.html" class="btn-secundario">
-<i class="fa-solid fa-tags"></i>
-Ver Ofertas
-</a>
-
-</div>
-
-<br>
-
-<p>
-
-🚚 Envíos rápidos &nbsp;&nbsp;&nbsp;
-💳 Pago Seguro &nbsp;&nbsp;&nbsp;
-🌱 Compra Responsable
-
-</p>
-
-</div>
-
-<div class="hero-imagen">
-
-<div class="hero-card1">
-
-<h3>70%</h3>
-
-<p>Hasta de descuento</p>
-
-</div>
-
-<img src="img/hero.png" alt="Productos Frescos">
-
-<div class="hero-card2">
-
-<h3>✓</h3>
-
-<p>Productos Frescos</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</section>
-<section class="estadisticas">
-
-<div class="slider">
-
-<div class="slide">
-<h2>+5,000</h2>
-<p>Clientes Satisfechos</p>
-</div>
-
-<div class="slide">
-<h2>+150</h2>
-<p>Supermercados Afiliados</p>
-</div>
-
-<div class="slide">
-<h2>+25,000</h2>
-<p>Productos Vendidos</p>
-</div>
-
-<div class="slide">
-<h2>98%</h2>
-<p>Clientes Recurrentes</p>
-</div>
-
-<div class="slide">
-<h2>24/7</h2>
-<p>Atención al Cliente</p>
-</div>
-
-<div class="slide">
-<h2>100%</h2>
-<p>Pago Seguro</p>
-</div>
-
-<!-- Se repiten para hacer el efecto infinito -->
-
-<div class="slide">
-<h2>+5,000</h2>
-<p>Clientes Satisfechos</p>
-</div>
-
-<div class="slide">
-<h2>+150</h2>
-<p>Supermercados Afiliados</p>
-</div>
-
-<div class="slide">
-<h2>+25,000</h2>
-<p>Productos Vendidos</p>
-</div>
-
-<div class="slide">
-<h2>98%</h2>
-<p>Clientes Recurrentes</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="beneficios">
-
-<h2>Nuestros Beneficios</h2>
-
-<div class="beneficios-grid">
-
-<div class="beneficio">
-<i class="fa-solid fa-percent"></i>
-<h3>Grandes Descuentos</h3>
-<p>Obtén promociones diarias de hasta el 70% en alimentos de excelente calidad.</p>
-</div>
-
-<div class="beneficio">
-<i class="fa-solid fa-seedling"></i>
-<h3>Cuidado del Medio Ambiente</h3>
-<p>Reducimos el desperdicio de alimentos fomentando un consumo responsable.</p>
-</div>
-
-<div class="beneficio">
-<i class="fa-solid fa-credit-card"></i>
-<h3>Pago Seguro</h3>
-<p>Aceptamos múltiples métodos de pago con total seguridad.</p>
-</div>
-
-<div class="beneficio">
-<i class="fa-solid fa-headset"></i>
-<h3>Soporte 24/7</h3>
-<p>Nuestro equipo está disponible para ayudarte en cualquier momento.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="proceso">
-
-<h2>¿Cómo Funciona?</h2>
-
-<div class="pasos">
-
-<div class="paso">
-<h1>1</h1>
-<h3>Explora</h3>
-<p>Busca los productos disponibles con descuentos.</p>
-</div>
-
-<div class="paso">
-<h1>2</h1>
-<h3>Compra</h3>
-<p>Selecciona tus productos favoritos.</p>
-</div>
-
-<div class="paso">
-<h1>3</h1>
-<h3>Recibe</h3>
-<p>Recibe tu pedido de manera rápida y segura.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="categorias">
-
-<h2>Categorías Disponibles</h2>
-
-<div class="contenedor">
-
-<div class="card">
-<i class="fa-solid fa-apple-whole"></i>
-<h3>Frutas</h3>
-<p>Frutas frescas con descuentos especiales.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-carrot"></i>
-<h3>Verduras</h3>
-<p>Productos frescos seleccionados diariamente.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-bread-slice"></i>
-<h3>Panadería</h3>
-<p>Pan y pasteles recién horneados.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-cheese"></i>
-<h3>Lácteos</h3>
-<p>Leche, queso, yogurt y mucho más.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="testimonios">
-
-<h2>Lo que opinan nuestros clientes</h2>
-
-<div class="contenedor">
-
-<div class="card">
-<p>"Excelente servicio, encontré productos de calidad a precios muy bajos."</p>
-<h4>★★★★★</h4>
-<strong>María López</strong>
-</div>
-
-<div class="card">
-<p>"Una plataforma muy útil para ahorrar dinero y ayudar al planeta."</p>
-<h4>★★★★★</h4>
-<strong>Carlos Ramos</strong>
-</div>
-
-<div class="card">
-<p>"El proceso de compra fue rápido y la entrega llegó a tiempo."</p>
-<h4>★★★★★</h4>
-<strong>Ana Torres</strong>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="extra">
-
-<div class="extra-box">
-
-<h2>Nuestra Visión</h2>
-
-<p>
-Ser la plataforma líder en Latinoamérica en la comercialización de alimentos con descuento, promoviendo un modelo de consumo responsable que contribuya al desarrollo sostenible y al bienestar de la sociedad.
-</p>
-
-</div>
-
-<div class="extra-box">
-
-<h2>Nuestros Valores</h2>
-
-<ul>
-<li>✔ Responsabilidad Social</li>
-<li>✔ Honestidad</li>
-<li>✔ Innovación</li>
-<li>✔ Compromiso Ambiental</li>
-<li>✔ Calidad de Servicio</li>
-<li>✔ Trabajo en Equipo</li>
-</ul>
-
-</div>
-
-</section>
-<section class="contenedor">
-
-<div class="card">
-<i class="fa-solid fa-leaf"></i>
-<h3>Nuestra Misión</h3>
-<p>Promover el consumo responsable y disminuir el desperdicio alimentario mediante soluciones innovadoras.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-hand-holding-dollar"></i>
-<h3>Ahorro Garantizado</h3>
-<p>Disfruta de productos de excelente calidad con descuentos exclusivos todos los días.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-earth-americas"></i>
-<h3>Impacto Ambiental</h3>
-<p>Contribuimos a construir un planeta más limpio y sostenible reduciendo el desperdicio de alimentos.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-truck-fast"></i>
-<h3>Entrega Segura</h3>
-<p>Realiza tus pedidos de manera rápida, sencilla y segura desde cualquier dispositivo.</p>
-</div>
-
-</section>
-
-<section class="extra">
-
-<div class="extra-box">
-<h2>¿Quiénes Somos?</h2>
-
-<p>
-Somos una plataforma comprometida con el cuidado del medio ambiente, ofreciendo alimentos de calidad a precios accesibles para beneficiar tanto a consumidores como a comercios.
-</p>
-
-</div>
-
-<div class="extra-box">
-
-<h2>¿Por Qué Elegirnos?</h2>
-
-<p>
-Brindamos una experiencia moderna, segura y confiable, con una plataforma intuitiva que facilita la compra responsable y el ahorro diario.
-</p>
-
-</div>
-
-</section>
-
-<footer>
-
-<p>
-<i class="fa-solid fa-envelope"></i>
-contacto@SuperMercado.com
-</p>
-
-<p>
-
-<i class="fa-brands fa-facebook"></i>
-
-<i class="fa-brands fa-instagram"></i>
-
-<i class="fa-brands fa-whatsapp"></i>
-
-</p>
-
-<p>
-
-© 2026 - Proyecto SuperMercado
-
-</p>
-
-</footer>
-<button id="btnArriba">
-    <i class="fa-solid fa-arrow-up"></i>
-</button>
-    <button id="btnArriba">
-    <i class="fa-solid fa-arrow-up"></i>
-</button>
     <script>
-/* ==========================
-   MODO OSCURO
-========================== */
+        (() => {
+            'use strict';
 
-const botonModo = document.getElementById("modoOscuro");
+            // ==========================================
+            // MAPEO DEL DOM (ELEMENTOS DE LA PÁGINA)
+            // ==========================================
+            const DOM = {
+                body: document.body,
+                themeBtn: document.getElementById('modoOscuro'),
+                themeIcon: document.querySelector('#modoOscuro i'),
+                menuToggle: document.getElementById('menu-toggle'),
+                navbar: document.getElementById('navbar'),
+                btnArriba: document.getElementById('btnArriba'),
+                counterItems: document.querySelectorAll('.slide h2'),
+                scrollAnimElements: document.querySelectorAll('.card, .beneficio, .paso, .extra-box'),
+                toast: document.getElementById('welcome-toast'),
+                toastClose: document.getElementById('cerrar-toast')
+            };
 
-botonModo.addEventListener("click", () => {
+            // ==========================================
+            // 1. MODO OSCURO CON COMODINES DE MEMORIA
+            // ==========================================
+            const initDarkMode = () => {
+                if (!DOM.themeBtn || !DOM.themeIcon) return;
+                
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    DOM.body.classList.add('dark');
+                    DOM.themeIcon.className = 'fa-solid fa-sun';
+                }
+                
+                DOM.themeBtn.addEventListener('click', () => {
+                    const isDark = DOM.body.classList.toggle('dark');
+                    DOM.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                });
+            };
 
-    document.body.classList.toggle("dark");
+            // ==========================================
+            // 2. MENÚ HAMBURGUESA INTERACTIVO
+            // ==========================================
+            const initMobileMenu = () => {
+                if (!DOM.menuToggle || !DOM.navbar) return;
+                
+                DOM.menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    DOM.navbar.classList.toggle('activo');
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (DOM.navbar.classList.contains('activo') && !DOM.navbar.contains(e.target)) {
+                        DOM.navbar.classList.remove('activo');
+                    }
+                });
+            };
 
-    const icono = botonModo.querySelector("i");
+            // ==========================================
+            // 3. BOTÓN VOLVER ARRIBA (ALTO RENDIMIENTO)
+            // ==========================================
+            const initScrollTop = () => {
+                if (!DOM.btnArriba) return;
+                let isTicking = false;
+                
+                window.addEventListener('scroll', () => {
+                    if (!isTicking) {
+                        window.requestAnimationFrame(() => {
+                            if (window.scrollY > 350) {
+                                DOM.btnArriba.classList.add('visible');
+                            } else {
+                                DOM.btnArriba.classList.remove('visible');
+                            }
+                            isTicking = false;
+                        });
+                        isTicking = true;
+                    }
+                }, { passive: true });
+                
+                DOM.btnArriba.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            };
 
-    if(document.body.classList.contains("dark")){
-        icono.classList.remove("fa-moon");
-        icono.classList.add("fa-sun");
-    }else{
-        icono.classList.remove("fa-sun");
-        icono.classList.add("fa-moon");
-    }
+            // ==========================================
+            // 4. CONTADORES ANIMADOS MATEMÁTICOS FLUIDOS
+            // ==========================================
+            const animateCounters = () => {
+                if (!DOM.counterItems.length) return;
+                
+                DOM.counterItems.forEach(item => {
+                    const rawText = item.innerText;
+                    const isPercentage = rawText.includes('%');
+                    const targetValue = parseInt(rawText.replace(/[^0-9]/g, ''), 10);
+                    if (isNaN(targetValue)) return;
 
-});
+                    let currentCount = 0;
+                    const duration = 5000; // Duración en ms
+                    const frameRate = 1000 / 60; // 60 FPS
+                    const totalFrames = Math.round(duration / frameRate);
+                    const increment = targetValue / totalFrames;
 
+                    const updateCounter = () => {
+                        currentCount += increment;
+                        if (currentCount >= targetValue) {
+                            item.innerText = isPercentage ? `${targetValue}%` : `+${targetValue.toLocaleString()}`;
+                        } else {
+                            const displayValue = Math.floor(currentCount);
+                            item.innerText = isPercentage ? `${displayValue}%` : `+${displayValue.toLocaleString()}`;
+                            setTimeout(updateCounter, frameRate);
+                        }
+                    };
+                    updateCounter();
+                });
+            };
 
-/* ==========================
-   BOTÓN VOLVER ARRIBA
-========================== */
+            // ==========================================
+            // 5. ANIMACIONES MEDIANTE INTERSECTION OBSERVER
+            // ==========================================
+            const initScrollAnimations = () => {
+                if (!DOM.scrollAnimElements.length) return;
+                
+                const observerOptions = { root: null, threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('aparecer');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
 
-const btnArriba = document.getElementById("btnArriba");
+                DOM.scrollAnimElements.forEach(el => {
+                    el.classList.add('reveal-init');
+                    observer.observe(el);
+                });
+            };
 
-window.addEventListener("scroll", ()=>{
+            // ==========================================
+            // 6. TOAST DE BIENVENIDA MODERNO (ANUNCIO DEL 70% DE DESCUENTO)
+            // ==========================================
+            const initWelcomeToast = () => {
+                if (!DOM.toast || !DOM.toastClose) return;
 
-    if(window.scrollY > 350){
-        btnArriba.style.display="block";
-    }else{
-        btnArriba.style.display="none";
-    }
+                // Muestra la alerta a los 1.5 segundos de carga de forma fluida
+                setTimeout(() => {
+                    DOM.toast.classList.add('mostrar');
+                }, 1500);
 
-});
+                // Cierra la alerta al presionar la 'X'
+                DOM.toastClose.addEventListener('click', () => {
+                    DOM.toast.classList.remove('mostrar');
+                });
 
-btnArriba.addEventListener("click", ()=>{
+                // Auto-cierra el Toast a los 8 segundos de haber aparecido
+                setTimeout(() => {
+                    DOM.toast.classList.remove('mostrar');
+                }, 9500);
+            };
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+            // ==========================================
+            // LANZADOR CENTRAL DE INICIALIZACIÓN
+            // ==========================================
+            const init = () => {
+                initDarkMode();
+                initMobileMenu();
+                initScrollTop();
+                initScrollAnimations();
+                animateCounters();
+                initWelcomeToast(); // <--- Lanzador del Toast añadido con éxito
+            };
 
-});
-
-
-/* ==========================
-   CONTADORES ANIMADOS
-========================== */
-
-const numeros = document.querySelectorAll(".slide h2");
-
-numeros.forEach(numero=>{
-
-    let texto = numero.innerText.replace(/\+/g,"").replace(/,/g,"").replace("%","");
-
-    let objetivo = parseInt(texto);
-
-    if(isNaN(objetivo)) return;
-
-    let contador=0;
-
-    let incremento=Math.ceil(objetivo/120);
-
-    const animacion=setInterval(()=>{
-
-        contador+=incremento;
-
-        if(contador>=objetivo){
-            contador=objetivo;
-            clearInterval(animacion);
-        }
-
-        if(numero.innerText.includes("%")){
-            numero.innerText=contador+"%";
-        }else{
-            numero.innerText="+"+contador.toLocaleString();
-        }
-
-    },15);
-
-});
-
-
-/* ==========================
-   ANIMACIÓN AL HACER SCROLL
-========================== */
-
-const elementos=document.querySelectorAll(".card,.beneficio,.paso,.extra-box");
-
-const mostrar=()=>{
-
-elementos.forEach(el=>{
-
-const posicion=el.getBoundingClientRect().top;
-
-if(posicion<window.innerHeight-100){
-
-el.style.opacity="1";
-el.style.transform="translateY(0)";
-
-}
-
-});
-
-}
-
-elementos.forEach(el=>{
-
-el.style.opacity="0";
-el.style.transform="translateY(50px)";
-el.style.transition="1s";
-
-});
-
-window.addEventListener("scroll",mostrar);
-
-mostrar();
-
-
-/* ==========================
-   MENSAJE BIENVENIDA
-========================== */
-
-setTimeout(()=>{
-
-alert("👋 Bienvenido a SuperMercado\nAprovecha nuestras ofertas de hasta el 70%.");
-
-},800);
-
-</script>
+            // Comprobación de seguridad en carga del DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 </html>
